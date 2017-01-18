@@ -6,7 +6,7 @@ id: home
 
 <div class="hero">
 	<div class="container">
-		<div class="hero-title">Keeps the most complex iOS user interfaces smooth and responsive.</div>
+		<div class="hero-title">Huginn 听你号令，自动通知你的关注，自动触发执行你的任务！</div>
 		<a href="/docs/getting-started.html" class="btn">Get Started</a>
 		<a href="https://github.com/facebook/AsyncDisplayKit" class="btn btn-outlined">View on GitHub</a>
 	</div>
@@ -14,10 +14,13 @@ id: home
 
 <div class="container">
 	<article>
-		<p>AsyncDisplayKit is an iOS framework that keeps even the most complex user interfaces smooth and responsive.  It was originally built to make Facebook&#39;s Paper possible, and goes hand-in-hand with <a href="https://github.com/facebook/pop">pop</a>&#39;s physics-based animations &mdash; but it&#39;s just as powerful with UIKit Dynamics and conventional app designs.</p>
-		<p>As the framework has grown, many features have been added that can save developers tons of time by eliminating common boilerplate style structures common in modern iOS apps. If you've ever dealt with cell reuse bugs, tried to performantly preload data for a page or scroll style interface or even just tried to keep your app from dropping too many frames you can benefit from integrating ASDK.</p>
+		
+		<p>致力于整合联动各种互联网计算机系统和服务，根据Scenarios的设置智能化地触发执行各种任务和命令，通过全球分享的海量Scenarios 库</p>
+		<p>就可以创造性地组合发挥各种Scenarios来实现各种超赞的功能，打造出你的人工智能系统，替代优化操作流程，让人们可以从繁琐折腾中解放出来。</p>
+		
+		
 		<p>
-		    To learn more, <a href = "/docs/getting-started.html">check out our docs!</a>
+		    想获得更多, <a href = "/docs/getting-started.html">查看我们的文档!</a>
 		</p>
 	</article>
 </div>
