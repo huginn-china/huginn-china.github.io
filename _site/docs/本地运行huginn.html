@@ -2,7 +2,7 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Huginn-China | ASMapNode</title>
+    <title>Huginn-China | 本地运行 huginn</title>
     <link rel='stylesheet' href='/static/main.css' type='text/css'/>
     <link rel='stylesheet' href='/static/media.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
@@ -24,11 +24,11 @@
 	<meta name="msapplication-TileImage" content="/static/images/favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="ASMapNode" />
+    <meta property="og:title" content="本地运行 huginn" />
     <meta property="og:site_name" content="Huginn-China">
     <meta property='og:description' content='Huginn-China'>
     <meta property='og:image' content='http://asyncdisplaykit.org/static/asyncdisplaykit-og-image.png'>
-    <meta property='og:url' content="http://asyncdisplaykit.org/docs/map-node.html">
+    <meta property='og:url' content="http://asyncdisplaykit.org/docs/本地运行huginn.html">
     <meta property='og:type' content='website'>
     <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
     <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
@@ -281,7 +281,7 @@
             
             
             <li>
-              <a href=/docs/本地运行huginn.html>
+              <a href=/docs/本地运行huginn.html class="active">
                 本地运行 huginn
               </a>
             </li>
@@ -9588,7 +9588,7 @@
             
             
             <li>
-              <a href=/docs/map-node.html class="active">
+              <a href=/docs/map-node.html>
                 ASMapNode
               </a>
             </li>
@@ -10605,155 +10605,94 @@
 	
 	<div class="content">
 		<h1>
-	      ASMapNode
+	      本地运行 huginn
 	    </h1>
 	    <p></p>
 	
-	    <p><code class="highlighter-rouge">ASMapNode</code> allows you to easily specify a geographic region to show to your users.</p>
+	    <ol>
+  <li>
+    <p>克隆这个 repo</p>
 
-<h3 id="basic-usage">Basic Usage</h3>
+    <div class="highlighter-rouge"><pre class="highlight"><code> $ git clone git@github.com:cantino/huginn.git
+ $ cd huginn
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>安装 <a href="http://www.ruby-lang.org/en/downloads/">Ruby</a> and <a href="https://rubygems.org/pages/download">Ruby Gems</a> (如果未安装)</p>
+  </li>
+  <li>
+    <p>安装 rake 和 bundle (如果未安装):</p>
 
-<p>Let’s say you’d like to show a snapshot of San Francisco.  All you need are the coordinates.</p>
+    <div class="highlighter-rouge"><pre class="highlight"><code> $ gem install rake bundle
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>安装 Huginn 需要的依赖文件</p>
 
-<div class="highlight-group">
-<span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class="active objcButton">Objective-C</a></span>
+    <div class="highlighter-rouge"><pre class="highlight"><code> $ bundle install
+</code></pre>
+    </div>
+  </li>
+  <li>安装 <a href="http://dev.mysql.com/downloads/">MySQL</a></li>
+  <li>
+    <p>启动 MySQL 服务:</p>
 
-<div class="code">
-<pre lang="objc" class="objcCode">
-ASMapNode *mapNode = [[ASMapNode alloc] init];
-mapNode.preferredFrameSize = CGSizeMake(300.0, 300.0);
+    <div class="highlighter-rouge"><pre class="highlight"><code> $ mysql.server start
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>复制 <em>.env.example</em> 为 <em>.env</em>:</p>
 
-// San Francisco
-CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(37.7749, -122.4194);
+    <div class="highlighter-rouge"><pre class="highlight"><code> $ cp .env.example .env
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>生成 <code class="highlighter-rouge">APP_SECRET_TOKEN</code>:</p>
 
-// show 20,000 square meters
-mapNode.region = MKCoordinateRegionMakeWithDistance(coord, 20000, 20000);
-</pre>
+    <div class="highlighter-rouge"><pre class="highlight"><code> $ rake secret
+</code></pre>
+    </div>
+  </li>
+  <li>编辑 <em>.env</em>文件, 在 <code class="highlighter-rouge">APP_SECRET_TOKEN</code>里面填入刚才生成的 TOKEN 密匙.</li>
+  <li>
+    <p>使用实例模板创建正式的 MySQL 数据库:</p>
 
-<pre lang="swift" class="swiftCode hidden">
-let mapNode = ASMapNode()
-mapNode.preferredFrameSize = CGSize(width: 300.0, height: 300.0)
+    <div class="highlighter-rouge"><pre class="highlight"><code> $ rake db:create
+ $ rake db:migrate
+ $ rake db:seed
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>准备就绪后. 启动本地服务:</p>
 
-// San Francisco
-let coord = CLLocationCoordinate2DMake(37.7749, -122.4194)
+    <div class="highlighter-rouge"><pre class="highlight"><code> $ foreman start  
+</code></pre>
+    </div>
 
-// show 20,000 square meters
-mapNode.region = MKCoordinateRegionMakeWithDistance(coord, 20000, 20000)
-</pre>
-</div>
-</div>
+    <p>访问 <a href="http://localhost:3000/">http://localhost:3000/</a> 然后使用默认的帐号和密码登录即可.</p>
+  </li>
+</ol>
 
-<p><img width="300" src="/static/images/basicMap.png" /></p>
-
-<p>The region value is actually just one piece of a property called <code class="highlighter-rouge">options</code> of type <code class="highlighter-rouge">MKMapSnapshotOptions</code>.</p>
-
-<h3 id="mkmapsnapshotoptions">MKMapSnapshotOptions</h3>
-
-<p>A map node’s main components can be defined directly through its <code class="highlighter-rouge">options</code> property.  The snapshot options object contains the following:</p>
-
-<ul>
-	<li>An <strong>MKMapCamera</strong>: used to configure altitude and pitch of the camera</li>
-	<li>An <strong>MKMapRect</strong>: basically a CGRect</li>
-	<li>An <strong>MKMapRegion</strong>: Controls the coordinate of focus, and the size around that focus to show</li>
-	<li>An <strong>MKMapType</strong>: Can be set to Standard, Satellite, etc.</li>
-</ul>
-
-<p>To do something like changing your map to a satellite map, you just need to create an options object and set its properties accordingly.</p>
-
-<div class="highlight-group">
-<span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class="active objcButton">Objective-C</a></span>
-
-<div class="code">
-<pre lang="objc" class="objcCode">
-MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];
-options.mapType = MKMapTypeSatellite;
-options.region = MKCoordinateRegionMakeWithDistance(coord, 20000, 20000);
-
-mapNode.options = options;
-</pre>
-<pre lang="swift" class="swiftCode hidden">
-let options = MKMapSnapshotOptions()
-options.mapType = .Satellite
-options.region = MKCoordinateRegionMakeWithDistance(coord, 20000, 20000)
-
-mapNode.options = options
-</pre>
-</div>
-</div>
-
-<p>Results in:</p>
-
-<p><img width="300" src="/static/images/satelliteMap.png" /></p>
-
-<p>One thing to note is that setting the options value will overwrite a previously set region.</p>
-
-<h3 id="annotations">Annotations</h3>
-
-<p>To set annotations, all you need to do is assign an array of annotations to your mapNode.</p>
-
-<p>Say you want to show a pin directly in the middle of your map of San Francisco.</p>
-
-<div class="highlight-group">
-<span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class="active objcButton">Objective-C</a></span>
-
-<div class="code">
-<pre lang="objc" class="objcCode">
-MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
-annotation.coordinate = CLLocationCoordinate2DMake(37.7749, -122.4194);
-
-mapNode.annotations = @[annotation];
-</pre>
-<pre lang="swift" class="swiftCode hidden">
-let annotation = MKPointAnnotation()
-annotation.coordinate = CLLocationCoordinate2DMake(37.7749, -122.4194)
-
-mapNode.annotations = [annotation]
-</pre>
-</div>
-</div>
-
-<p><img width="300" src="/static/images/mapWithAnnotation.png" /></p>
-
-<p>No problem.</p>
-
-<h3 id="live-map-mode">Live Map Mode</h3>
-
-<p>Chaning your map node from a static view of some region, into a fully interactable cartographic playground is as easy as:</p>
-
-<div class="highlight-group">
-<span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class="active objcButton">Objective-C</a></span>
-
-<div class="code">
-<pre lang="objc" class="objcCode">
-mapNode.liveMap = YES;
-</pre>
-<pre lang="swift" class="swiftCode hidden">
-mapNode.liveMap = true
-</pre>
-</div>
-</div>
-
-<p>This enables “live map mode” in which the node will use an <a href="https://developer.apple.com/library/mac/documentation/MapKit/Reference/MKMapView_Class/">MKMapView</a> to render an interactive version of your map.</p>
-
-<p><img width="300" src="/static/images/liveMap.gif" /></p>
-
-<p>As with UIKit views, the MKMapView used in live map mode is not thread-safe.</p>
-
-<h3 id="mkmapview-delegate">MKMapView Delegate</h3>
-
-<p>If live map mode has been enabled and you need to react to any events associated with the map node, you can set the <code class="highlighter-rouge">mapDelegate</code> property.  This delegate should conform to the <a href="https://developer.apple.com/library/ios/documentation/MapKit/Reference/MKMapViewDelegate_Protocol/index.html">MKMapViewDelegate</a> protocol.</p>
+<blockquote>
+  <p>本文由 <a href="http://huginn.cn"> Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="https://gist.github.com/mjhea0/b6b58eefc38985380ff9">install_huginn_locally</a></p>
+</blockquote>
 
 
 	    
-	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/map-node.md" target="_blank">Edit on GitHub</a></p>
+	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/本地运行huginn.md" target="_blank">Edit on GitHub</a></p>
 
 	
 	    <div class="docs-prevnext">
 	      
-	        <a href="/docs/video-node.html">&larr; Prev</a>
+	        <a href="/docs/network-image-node.html">&larr; Prev</a>
 	      
 	      
-	        <a class="right" href="/docs/control-node.html">Next &rarr;</a>
+	        <a class="right" href="/docs/map-node.html">Next &rarr;</a>
 	      
 	    </div>
 	

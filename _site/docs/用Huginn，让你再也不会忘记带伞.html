@@ -2,7 +2,7 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Huginn-China | ASMapNode</title>
+    <title>Huginn-China | 用 Huginn，让你再也不会忘记带伞</title>
     <link rel='stylesheet' href='/static/main.css' type='text/css'/>
     <link rel='stylesheet' href='/static/media.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
@@ -24,11 +24,11 @@
 	<meta name="msapplication-TileImage" content="/static/images/favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="ASMapNode" />
+    <meta property="og:title" content="用 Huginn，让你再也不会忘记带伞" />
     <meta property="og:site_name" content="Huginn-China">
     <meta property='og:description' content='Huginn-China'>
     <meta property='og:image' content='http://asyncdisplaykit.org/static/asyncdisplaykit-og-image.png'>
-    <meta property='og:url' content="http://asyncdisplaykit.org/docs/map-node.html">
+    <meta property='og:url' content="http://asyncdisplaykit.org/docs/用Huginn，让你再也不会忘记带伞.html">
     <meta property='og:type' content='website'>
     <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
     <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
@@ -757,7 +757,7 @@
             
             
             <li>
-              <a href=/docs/用Huginn，让你再也不会忘记带伞.html>
+              <a href=/docs/用Huginn，让你再也不会忘记带伞.html class="active">
                 用 Huginn，让你再也不会忘记带伞
               </a>
             </li>
@@ -9588,7 +9588,7 @@
             
             
             <li>
-              <a href=/docs/map-node.html class="active">
+              <a href=/docs/map-node.html>
                 ASMapNode
               </a>
             </li>
@@ -10605,155 +10605,58 @@
 	
 	<div class="content">
 		<h1>
-	      ASMapNode
+	      用 Huginn，让你再也不会忘记带伞
 	    </h1>
 	    <p></p>
 	
-	    <p><code class="highlighter-rouge">ASMapNode</code> allows you to easily specify a geographic region to show to your users.</p>
+	    <p><a href="https://github.com/cantino/huginn">Huginn</a> 是一年来我在广大开源协作者的支持下一直在做的一款工具。Huginn 是建立数据采集和数据反应日常生活的任务的轻型基础设施,把它看成是一个开源的 Yahoo! Pipes，IFTTT，或 Zapier。如果，在未来，Huginn 演变成类似 Google Now，但没有潜在的因素，因为您可以控制​​和主机自己的数据，它不会让我感到吃惊。</p>
 
-<h3 id="basic-usage">Basic Usage</h3>
+<p>我没有做过的所有共享，可以与 Huginn 建的事情了很好的工作，但我决心开始。</p>
 
-<p>Let’s say you’d like to show a snapshot of San Francisco.  All you need are the coordinates.</p>
+<p>因此，在这篇文章中，一个很简单的例子：</p>
 
-<div class="highlight-group">
-<span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class="active objcButton">Objective-C</a></span>
+<p><strong>问题：</strong> 我总是忘记查看天气，忘记带伞，被淋成落汤鸡。
+<strong>解决方案：</strong> 当你所在地区有雨的时候，Huginn 每天早晨会向您发送电子邮件（或短信）。</p>
 
-<div class="code">
-<pre lang="objc" class="objcCode">
-ASMapNode *mapNode = [[ASMapNode alloc] init];
-mapNode.preferredFrameSize = CGSizeMake(300.0, 300.0);
+<p>在服务器上已经安装 Huginn，制作一个新的天气 Agent：</p>
 
-// San Francisco
-CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(37.7749, -122.4194);
+<p><img src="https://ws1.sinaimg.cn/large/70b88a6bjw1f602jxqdogj20of03edg2.jpg" alt="" /></p>
 
-// show 20,000 square meters
-mapNode.region = MKCoordinateRegionMakeWithDistance(coord, 20000, 20000);
-</pre>
+<p>你只需要将自己邮政编码（或位置代码）和 Wunderground 一个免费的API密钥。设置代理在晚上10点运行，这样它收集的数据是明天的天气。</p>
 
-<pre lang="swift" class="swiftCode hidden">
-let mapNode = ASMapNode()
-mapNode.preferredFrameSize = CGSize(width: 300.0, height: 300.0)
+<p><img src="https://ws2.sinaimg.cn/large/70b88a6bjw1f602m5nr7aj21iq128124.jpg" alt="" /></p>
 
-// San Francisco
-let coord = CLLocationCoordinate2DMake(37.7749, -122.4194)
+<p>一旦你保存你的新WeatherAgent，现在是时候来建立一个TriggerAgent。你需要把你刚才创建的WeatherAgent设置为源。</p>
 
-// show 20,000 square meters
-mapNode.region = MKCoordinateRegionMakeWithDistance(coord, 20000, 20000)
-</pre>
-</div>
-</div>
+<p><img src="http://ww2.sinaimg.cn/large/70b88a6bjw1f602n8393nj21hg14ggxj.jpg" alt="" /></p>
 
-<p><img width="300" src="/static/images/basicMap.png" /></p>
+<p>TriggerAgents 包含一套规则，所有这一切都必须为触发火灾匹配。在这种情况下，我们只需要一个规则来匹配该Wunderground API天气事件的条件属性。我们会做一个正则表达式（正则表达式）对阵此属性，寻找写着“雨”或“风暴”。当触发火灾，将输出与消息的事件“带把雨伞！它看起来像“<条件>'明天'<位置>'”。这些&lt;...&gt;字段将通过从事件在这种情况下是filtered-，从您刚才WeatherAgent事件相应的属性填写。该截图显示了代理的选项正在被编辑为JSON，使其更容易为你阅读。您可以使用编辑器模式。</位置></条件></p>
 
-<p>The region value is actually just one piece of a property called <code class="highlighter-rouge">options</code> of type <code class="highlighter-rouge">MKMapSnapshotOptions</code>.</p>
+<p>最后，我们只需要代理给我们发电子邮件的Trigger Agent的事件。我们将使用一个DigestEmailAgent。它可以在一个特定的时间，将它收到的事件一次性地使用Email Agent发送电子邮件，或者wilioAgent发送短信。</p>
 
-<h3 id="mkmapsnapshotoptions">MKMapSnapshotOptions</h3>
+<p>设置的事件的日程安排在早上6点运行，这样你醒来就可以收到电子邮件。记得为你刚刚创建的下雨警报事件设置来源。</p>
 
-<p>A map node’s main components can be defined directly through its <code class="highlighter-rouge">options</code> property.  The snapshot options object contains the following:</p>
+<p><img src="http://ww3.sinaimg.cn/large/70b88a6bjw1f602r69lalj21hu0ve0zs.jpg" alt="" /></p>
 
-<ul>
-	<li>An <strong>MKMapCamera</strong>: used to configure altitude and pitch of the camera</li>
-	<li>An <strong>MKMapRect</strong>: basically a CGRect</li>
-	<li>An <strong>MKMapRegion</strong>: Controls the coordinate of focus, and the size around that focus to show</li>
-	<li>An <strong>MKMapType</strong>: Can be set to Standard, Satellite, etc.</li>
-</ul>
+<p>就是这样！现在，您会在早上6点的早晨，当雨水在你的面积预计收到一封电子邮件。保持干爽！</p>
 
-<p>To do something like changing your map to a satellite map, you just need to create an options object and set its properties accordingly.</p>
+<p>我会尽快发布更多的例子。你想看到什么样的Huginn教程，告诉我吧！</p>
 
-<div class="highlight-group">
-<span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class="active objcButton">Objective-C</a></span>
-
-<div class="code">
-<pre lang="objc" class="objcCode">
-MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];
-options.mapType = MKMapTypeSatellite;
-options.region = MKCoordinateRegionMakeWithDistance(coord, 20000, 20000);
-
-mapNode.options = options;
-</pre>
-<pre lang="swift" class="swiftCode hidden">
-let options = MKMapSnapshotOptions()
-options.mapType = .Satellite
-options.region = MKCoordinateRegionMakeWithDistance(coord, 20000, 20000)
-
-mapNode.options = options
-</pre>
-</div>
-</div>
-
-<p>Results in:</p>
-
-<p><img width="300" src="/static/images/satelliteMap.png" /></p>
-
-<p>One thing to note is that setting the options value will overwrite a previously set region.</p>
-
-<h3 id="annotations">Annotations</h3>
-
-<p>To set annotations, all you need to do is assign an array of annotations to your mapNode.</p>
-
-<p>Say you want to show a pin directly in the middle of your map of San Francisco.</p>
-
-<div class="highlight-group">
-<span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class="active objcButton">Objective-C</a></span>
-
-<div class="code">
-<pre lang="objc" class="objcCode">
-MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
-annotation.coordinate = CLLocationCoordinate2DMake(37.7749, -122.4194);
-
-mapNode.annotations = @[annotation];
-</pre>
-<pre lang="swift" class="swiftCode hidden">
-let annotation = MKPointAnnotation()
-annotation.coordinate = CLLocationCoordinate2DMake(37.7749, -122.4194)
-
-mapNode.annotations = [annotation]
-</pre>
-</div>
-</div>
-
-<p><img width="300" src="/static/images/mapWithAnnotation.png" /></p>
-
-<p>No problem.</p>
-
-<h3 id="live-map-mode">Live Map Mode</h3>
-
-<p>Chaning your map node from a static view of some region, into a fully interactable cartographic playground is as easy as:</p>
-
-<div class="highlight-group">
-<span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class="active objcButton">Objective-C</a></span>
-
-<div class="code">
-<pre lang="objc" class="objcCode">
-mapNode.liveMap = YES;
-</pre>
-<pre lang="swift" class="swiftCode hidden">
-mapNode.liveMap = true
-</pre>
-</div>
-</div>
-
-<p>This enables “live map mode” in which the node will use an <a href="https://developer.apple.com/library/mac/documentation/MapKit/Reference/MKMapView_Class/">MKMapView</a> to render an interactive version of your map.</p>
-
-<p><img width="300" src="/static/images/liveMap.gif" /></p>
-
-<p>As with UIKit views, the MKMapView used in live map mode is not thread-safe.</p>
-
-<h3 id="mkmapview-delegate">MKMapView Delegate</h3>
-
-<p>If live map mode has been enabled and you need to react to any events associated with the map node, you can set the <code class="highlighter-rouge">mapDelegate</code> property.  This delegate should conform to the <a href="https://developer.apple.com/library/ios/documentation/MapKit/Reference/MKMapViewDelegate_Protocol/index.html">MKMapViewDelegate</a> protocol.</p>
+<blockquote>
+  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="http://blog.andrewcantino.com/blog/2014/01/12/never-forget-your-umbrella-again-with-huginn">Never Forget Your Umbrella Again, With Huginn</a></p>
+</blockquote>
 
 
 	    
-	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/map-node.md" target="_blank">Edit on GitHub</a></p>
+	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/用Huginn，让你再也不会忘记带伞.md" target="_blank">Edit on GitHub</a></p>
 
 	
 	    <div class="docs-prevnext">
 	      
-	        <a href="/docs/video-node.html">&larr; Prev</a>
+	        <a href="/docs/network-image-node.html">&larr; Prev</a>
 	      
 	      
-	        <a class="right" href="/docs/control-node.html">Next &rarr;</a>
+	        <a class="right" href="/docs/map-node.html">Next &rarr;</a>
 	      
 	    </div>
 	

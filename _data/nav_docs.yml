@@ -1,18 +1,15 @@
-- title: Quick Start
+- title: 快速开始
   items:
-  - getting-started
+  - 本地运行huginn
   - resources
-  - installation
-  - adoption-guide-2-0-beta1
-- title: Core Concepts
+- title: 使用 Huginn
   items:
-  - intelligent-preloading
-  - containers-overview
-  - node-overview
+  - 用Huginn，让你再也不会忘记带伞
+  - 让Huginn告诉你这个世界的变化
   - subclassing
   - node-lifecycle
   - faq
-- title: Layout
+- title: 部署 Huginn
   items:
   - layout2-quickstart
   - automatic-layout-examples-2

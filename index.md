@@ -8,7 +8,7 @@ id: home
 	<div class="container">
 		<div class="hero-title">Huginn 听你号令，自动通知你的关注，自动触发执行你的任务！</div>
 		<a href="/docs/getting-started.html" class="btn">Get Started</a>
-		<a href="https://github.com/facebook/AsyncDisplayKit" class="btn btn-outlined">View on GitHub</a>
+		<a href="https://github.com/cantino/huginn" class="btn btn-outlined">View on GitHub</a>
 	</div>
 </div>
 

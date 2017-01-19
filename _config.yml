@@ -1,10 +1,9 @@
 ---
 url: http://asyncdisplaykit.org
-name: AsyncDisplayKit
+name: Huginn China
 relative_permalinks: false
 markdown: kramdown
-timezone: America/Los_Angeles
-google_analytics: UA-87502907-1
+timezone: China/Shanghai
 
 safe: true
 lsi: false

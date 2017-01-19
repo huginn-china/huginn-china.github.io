@@ -2,7 +2,7 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Huginn-China | ASMapNode</title>
+    <title>Huginn-China | 让 Huginn 告诉你这个世界的变化</title>
     <link rel='stylesheet' href='/static/main.css' type='text/css'/>
     <link rel='stylesheet' href='/static/media.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
@@ -24,11 +24,11 @@
 	<meta name="msapplication-TileImage" content="/static/images/favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="ASMapNode" />
+    <meta property="og:title" content="让 Huginn 告诉你这个世界的变化" />
     <meta property="og:site_name" content="Huginn-China">
     <meta property='og:description' content='Huginn-China'>
     <meta property='og:image' content='http://asyncdisplaykit.org/static/asyncdisplaykit-og-image.png'>
-    <meta property='og:url' content="http://asyncdisplaykit.org/docs/map-node.html">
+    <meta property='og:url' content="http://asyncdisplaykit.org/docs/让Huginn告诉你这个世界的变化.html">
     <meta property='og:type' content='website'>
     <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
     <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
@@ -993,7 +993,7 @@
             
             
             <li>
-              <a href=/docs/让Huginn告诉你这个世界的变化.html>
+              <a href=/docs/让Huginn告诉你这个世界的变化.html class="active">
                 让 Huginn 告诉你这个世界的变化
               </a>
             </li>
@@ -9588,7 +9588,7 @@
             
             
             <li>
-              <a href=/docs/map-node.html class="active">
+              <a href=/docs/map-node.html>
                 ASMapNode
               </a>
             </li>
@@ -10605,155 +10605,67 @@
 	
 	<div class="content">
 		<h1>
-	      ASMapNode
+	      让 Huginn 告诉你这个世界的变化
 	    </h1>
 	    <p></p>
 	
-	    <p><code class="highlighter-rouge">ASMapNode</code> allows you to easily specify a geographic region to show to your users.</p>
+	    <p>这是我关于 Huginn 的第二篇文章，Huginn 是一款被开发者广泛支持的一款工具。Huginn 是建立数据采集和数据反应任务日常生活重量轻的平台。把它看成是一个开源 的 Yahoo! Pipes, IFTTT, 或 Zapier。</p>
 
-<h3 id="basic-usage">Basic Usage</h3>
+<p>在这篇文章中，我将告诉你如何设置关于世界的长期提醒。基本上，你的 Huginn 将能够回答诸如“下次超级碗的日期公布时告诉我”，“当我们发现引力波告诉我”，或“有向旧金山海啸时告诉我”的任意请求。</p>
 
-<p>Let’s say you’d like to show a snapshot of San Francisco.  All you need are the coordinates.</p>
+<p>问题：我想知道一件事的进展，但常常会错过它们的最新消息。
+答案：让Huginn来替你追踪这件事吧（通过Twitter），当你关心的话题有热点发生，huginn会提醒你
+<img src="http://7oxfwx.com1.z0.glb.clouddn.com/2016_08_17_01.jpg" alt="01" title="01" /></p>
 
-<div class="highlight-group">
-<span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class="active objcButton">Objective-C</a></span>
+<p>在设置你的 Huginn 服务后, 你需要创建一些 twitter 证书。 接着按照 Huginn 维基说明注册一个 Twitter 应用程序，编辑 .env 文件以便在 Huginn 实例上安装它。</p>
 
-<div class="code">
-<pre lang="objc" class="objcCode">
-ASMapNode *mapNode = [[ASMapNode alloc] init];
-mapNode.preferredFrameSize = CGSizeMake(300.0, 300.0);
+<p>现在，您已经完成了建立一个 Twitter 的应用程序；重新启动您的 Huginn 实例；访问服务页，并点击“Authenticate with Twitter”。Twitter 将请求你登录并授权给 twitter 应用。当你这样做，你应该看到 Huginn 新的服务与您的 Twitter 用户名。</p>
 
-// San Francisco
-CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(37.7749, -122.4194);
+<p>最后，你准备制作一个 TwitterStreamAgent。该 TwitterStreamAgent 根据提供的关键字或者过滤器实时的监控 Twitter 流。我们将使用一个新的 TwitterStreamAgent 监控感兴趣的关键字，并且每30分钟通知我们关键字的次数。</p>
 
-// show 20,000 square meters
-mapNode.region = MKCoordinateRegionMakeWithDistance(coord, 20000, 20000);
-</pre>
+<p>这项技术对普通的关键字支持良好，对冷门的有待提高。如果你想追踪冷门的关键字，像独特的产品名称，你可以做一个第二 TwitterStreamAgent，设置他的生成 events 代替 counts，当有关键字出现的时候就发邮件给你。</p>
 
-<pre lang="swift" class="swiftCode hidden">
-let mapNode = ASMapNode()
-mapNode.preferredFrameSize = CGSize(width: 300.0, height: 300.0)
+<p>好了，设置新 TwitterStreamAgent 每 30 分钟运行一次，保持活动 7 天，并产生计数。filters 部分，你可以进入 superbowl date announced，gravity waves detected 和 huginn open source。你的代理将保持追踪这些术语独立。</p>
 
-// San Francisco
-let coord = CLLocationCoordinate2DMake(37.7749, -122.4194)
+<p>您的屏幕现在看起来应该是这样的：</p>
 
-// show 20,000 square meters
-mapNode.region = MKCoordinateRegionMakeWithDistance(coord, 20000, 20000)
-</pre>
-</div>
-</div>
+<p><img src="http://7oxfwx.com1.z0.glb.clouddn.com/2016_08_17_02.png" alt="02" title="02" /></p>
 
-<p><img width="300" src="/static/images/basicMap.png" /></p>
+<p>接下来，让我们建立一个新的 PeakDetectorAgent。PeakDetectorAgent 被用于检测数据流的趋势。在我们的例子中，我们要寻找在 Twitter 的事件计数尖峰。他只从这里更改默认是把“stdmultiple”5代替3，这都由你决定，越高的数字代表越高的敏感度，如果你得到的提醒太多或太少，您可以自定义该值。（这里STD表示标准偏差。您的数据可能是不实际的 Gaussian，但 std 使得一个很好的调整因素）</p>
 
-<p>The region value is actually just one piece of a property called <code class="highlighter-rouge">options</code> of type <code class="highlighter-rouge">MKMapSnapshotOptions</code>.</p>
+<p><img src="http://7oxfwx.com1.z0.glb.clouddn.com/2016_08_17_03.png" alt="03" title="03" /></p>
 
-<h3 id="mkmapsnapshotoptions">MKMapSnapshotOptions</h3>
+<p>如果你让你的 Huginn 运行了一段时间，等待发生的一些科学革命，然后单击“显示”，你可能会看到这样的事情：</p>
 
-<p>A map node’s main components can be defined directly through its <code class="highlighter-rouge">options</code> property.  The snapshot options object contains the following:</p>
+<p><img src="http://7oxfwx.com1.z0.glb.clouddn.com/2016_08_17_04.png" alt="04" title="04" /></p>
 
-<ul>
-	<li>An <strong>MKMapCamera</strong>: used to configure altitude and pitch of the camera</li>
-	<li>An <strong>MKMapRect</strong>: basically a CGRect</li>
-	<li>An <strong>MKMapRegion</strong>: Controls the coordinate of focus, and the size around that focus to show</li>
-	<li>An <strong>MKMapType</strong>: Can be set to Standard, Satellite, etc.</li>
-</ul>
+<p>如果你愿意，你可以在这里停止。你需要这个功能！PeakDetectorAgent 的输出发送到电子邮件或电子邮件消化剂，您会收到警报时的 Twitter 感兴趣的尖峰。但是，为了提高可读性，我建议增加一个代理流程：一个  EventFormattingAgent.</p>
 
-<p>To do something like changing your map to a satellite map, you just need to create an options object and set its properties accordingly.</p>
+<p><img src="http://7oxfwx.com1.z0.glb.clouddn.com/2016_08_17_05.png" alt="05" title="05" /></p>
 
-<div class="highlight-group">
-<span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class="active objcButton">Objective-C</a></span>
+<p>此代理将从峰值检测器输出 JSON 格式成为一个更可读的格式以链接到搜索 Twitter，看到了骚动是关于什么的。这个连接到邮件代理，就大功告成了！</p>
 
-<div class="code">
-<pre lang="objc" class="objcCode">
-MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];
-options.mapType = MKMapTypeSatellite;
-options.region = MKCoordinateRegionMakeWithDistance(coord, 20000, 20000);
+<p><img src="http://7oxfwx.com1.z0.glb.clouddn.com/2016_08_17_06.png" alt="06" title="06" /></p>
 
-mapNode.options = options;
-</pre>
-<pre lang="swift" class="swiftCode hidden">
-let options = MKMapSnapshotOptions()
-options.mapType = .Satellite
-options.region = MKCoordinateRegionMakeWithDistance(coord, 20000, 20000)
+<p>这个例子的 Huginn 代理流程具有中等响应时间，感兴趣的峰值在 Twitter 上开始后，响应30-60分钟。有些题目要求更快的响应时间，像像“旧金山海啸预警”，“闪售票”或“股市崩溃”。处理警报喜欢这些，我运行不同 TwitterStreamAgent 和 PeakDetectorAgent 与 TwitterStreamAgent 检查每2分钟，PeakDetectorAgent 设置为做即时传播。结果峰值是直接发送到电子邮件或短信，而不是电子邮件摘要，让我得到警报非常及时。</p>
 
-mapNode.options = options
-</pre>
-</div>
-</div>
+<p>Huginn 的更多想法和更新，请参与并关注我的 Twitter！</p>
 
-<p>Results in:</p>
-
-<p><img width="300" src="/static/images/satelliteMap.png" /></p>
-
-<p>One thing to note is that setting the options value will overwrite a previously set region.</p>
-
-<h3 id="annotations">Annotations</h3>
-
-<p>To set annotations, all you need to do is assign an array of annotations to your mapNode.</p>
-
-<p>Say you want to show a pin directly in the middle of your map of San Francisco.</p>
-
-<div class="highlight-group">
-<span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class="active objcButton">Objective-C</a></span>
-
-<div class="code">
-<pre lang="objc" class="objcCode">
-MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
-annotation.coordinate = CLLocationCoordinate2DMake(37.7749, -122.4194);
-
-mapNode.annotations = @[annotation];
-</pre>
-<pre lang="swift" class="swiftCode hidden">
-let annotation = MKPointAnnotation()
-annotation.coordinate = CLLocationCoordinate2DMake(37.7749, -122.4194)
-
-mapNode.annotations = [annotation]
-</pre>
-</div>
-</div>
-
-<p><img width="300" src="/static/images/mapWithAnnotation.png" /></p>
-
-<p>No problem.</p>
-
-<h3 id="live-map-mode">Live Map Mode</h3>
-
-<p>Chaning your map node from a static view of some region, into a fully interactable cartographic playground is as easy as:</p>
-
-<div class="highlight-group">
-<span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class="active objcButton">Objective-C</a></span>
-
-<div class="code">
-<pre lang="objc" class="objcCode">
-mapNode.liveMap = YES;
-</pre>
-<pre lang="swift" class="swiftCode hidden">
-mapNode.liveMap = true
-</pre>
-</div>
-</div>
-
-<p>This enables “live map mode” in which the node will use an <a href="https://developer.apple.com/library/mac/documentation/MapKit/Reference/MKMapView_Class/">MKMapView</a> to render an interactive version of your map.</p>
-
-<p><img width="300" src="/static/images/liveMap.gif" /></p>
-
-<p>As with UIKit views, the MKMapView used in live map mode is not thread-safe.</p>
-
-<h3 id="mkmapview-delegate">MKMapView Delegate</h3>
-
-<p>If live map mode has been enabled and you need to react to any events associated with the map node, you can set the <code class="highlighter-rouge">mapDelegate</code> property.  This delegate should conform to the <a href="https://developer.apple.com/library/ios/documentation/MapKit/Reference/MKMapViewDelegate_Protocol/index.html">MKMapViewDelegate</a> protocol.</p>
+<blockquote>
+  <p>本文由 <a href="http://huginn.cn"> Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="http://blog.andrewcantino.com/blog/2014/03/17/know-when-the-world-changes-with-huginn/">Know When the World Changes– With Huginn</a></p>
+</blockquote>
 
 
 	    
-	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/map-node.md" target="_blank">Edit on GitHub</a></p>
+	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/让Huginn告诉你这个世界的变化.md" target="_blank">Edit on GitHub</a></p>
 
 	
 	    <div class="docs-prevnext">
 	      
-	        <a href="/docs/video-node.html">&larr; Prev</a>
+	        <a href="/docs/network-image-node.html">&larr; Prev</a>
 	      
 	      
-	        <a class="right" href="/docs/control-node.html">Next &rarr;</a>
+	        <a class="right" href="/docs/map-node.html">Next &rarr;</a>
 	      
 	    </div>
 	
