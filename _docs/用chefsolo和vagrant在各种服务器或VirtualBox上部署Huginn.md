@@ -2,8 +2,8 @@
 title: 用 chef solo 和 vagrant 在各种服务器或 VirtualBox 上部署 huginn
 layout: docs
 permalink: /docs/用chefsolo和vagrant在各种服务器或VirtualBox上部署Huginn.html
-prevPage: network-image-node.html
-nextPage: map-node.html
+prevPage: 在Vagrant和VirtualBox上面部署Huginn.html
+nextPage: 用chefsolo和vagrant在各种服务器或VirtualBox上部署Huginn.html
 ---
 这个 Vagrantfile 和 chef 手册，
 

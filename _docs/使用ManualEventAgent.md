@@ -2,8 +2,8 @@
 title: 使用 ManualEventAgent
 layout: docs
 permalink: /docs/使用ManualEventAgent.html
-prevPage: network-image-node.html
-nextPage: map-node.html
+prevPage: 让所有网页变成RSS——Huginn.html
+nextPage: 利用Cloudmailin服务解析邮件.html
 ---
 
 Manual Event Agent 是 Huginn 中最有用的工具之一， 可以用来开发和调试 Agent，从而帮助开发者创建事件并传递给其他的 Agent。通过一个任意大小或复杂程度的 JSON 格式的表单，Manual Event Agent 可以让用户精确地定义一个事件的具体内容。下面是具体的使用方法：

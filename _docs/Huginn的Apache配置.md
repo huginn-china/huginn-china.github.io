@@ -3,7 +3,7 @@ title: Huginn 的 Apache 配置
 layout: docs
 permalink: /docs/Huginn的Apache配置.html
 prevPage: 在Ubuntu-Debian上安装Huginn.html
-nextPage: map-node.html
+nextPage: 为什么要在docker上运行Huginn.html
 ---
 
 ```

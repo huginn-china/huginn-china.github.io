@@ -2,8 +2,8 @@
 title: 配置带有 OAuth 验证的应用
 layout: docs
 permalink: /docs/配置带有OAuth验证的应用.html
-prevPage: network-image-node.html
-nextPage: map-node.html
+prevPage: 让Huginn告诉你这个世界的变化.html
+nextPage: 创建一个新的Agent.html
 ---
 # 配置带有 OAuth 验证的应用
 

@@ -2,8 +2,8 @@
 title: 筛选 RSS 源，制作新的全文 RSS 源
 layout: docs
 permalink: /docs/筛选RSS源，制作新的全文RSS源.html
-prevPage: network-image-node.html
-nextPage: map-node.html
+prevPage: 第三方应用通过WebhookAgent连接Huginn.html
+nextPage: 让Huginn告诉你这个世界的变化.html
 ---
 
 **问题**：假如你喜欢的网站只提供摘要型的 RSS 源，但是你希望能在 RSS 阅读器中阅读全文 RSS，同时还希望它只推送某些特定的文章

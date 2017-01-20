@@ -2,8 +2,8 @@
 title: 利用 Liquid 模板引擎格式化事件
 layout: docs
 permalink: /docs/利用Liquid模板引擎格式化事件.html
-prevPage: network-image-node.html
-nextPage: map-node.html
+prevPage: 利用Cloudmailin服务解析邮件.html
+nextPage: 用Huginn来为你省钱.html
 ---
 
 

@@ -2,8 +2,8 @@
 title: 使用 PostgreSQL 代替 Mysql
 layout: docs
 permalink: /docs/使用PostgreSQL代替Mysql.html
-prevPage: network-image-node.html
-nextPage: map-node.html
+prevPage: 为什么要在docker上运行Huginn.html
+nextPage: 在Vagrant和VirtualBox上面部署Huginn.html
 ---
 # 使用 PostgreSQL 代替 Mysql
 

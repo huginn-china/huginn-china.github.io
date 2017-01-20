@@ -2,8 +2,8 @@
 title: 让所有网页变成RSS —— Huginn 
 layout: docs
 permalink: /docs/让所有网页变成RSS——Huginn.html
-prevPage: network-image-node.html
-nextPage: map-node.html
+prevPage: 部署到Cloud9(C9).html
+nextPage: 使用ManualEventAgent.html
 ---
 
 这篇文章主要介绍如何把将一个网页制作成为RSS。

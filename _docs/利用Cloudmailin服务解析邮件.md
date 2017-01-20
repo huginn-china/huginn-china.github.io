@@ -2,8 +2,8 @@
 title: 利用 Cloudmailin 服务解析邮件
 layout: docs
 permalink: /docs/利用Cloudmailin服务解析邮件.html
-prevPage: network-image-node.html
-nextPage: map-node.html
+prevPage: 使用ManualEventAgent.html
+nextPage: 利用Liquid模板引擎格式化事件.html
 ---
 
 [Cloudmailin](https://www.cloudmailin.com/) 服务可以将邮件转化成 HTTP POST，这与 Webhook Agent 结合使用的话，可以实现很多有趣的功能，具体的设置步骤如下：

@@ -2,8 +2,8 @@
 title: 让 Huginn 告诉你这个世界的变化
 layout: docs
 permalink: /docs/让Huginn告诉你这个世界的变化.html
-prevPage: network-image-node.html
-nextPage: map-node.html
+prevPage: 筛选RSS源，制作新的全文RSS源.html
+nextPage: 配置带有OAuth验证的应用.html
 ---
 # 让Huginn告诉你这个世界的变化
 

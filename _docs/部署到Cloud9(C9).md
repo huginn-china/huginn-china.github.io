@@ -2,8 +2,8 @@
 title: 部署到 Cloud9(C9)
 layout: docs
 permalink: /docs/部署到Cloud9(C9).html
-prevPage: network-image-node.html
-nextPage: map-node.html
+prevPage: 部署到Heroku.html
+nextPage: 让所有网页变成RSS——Huginn.html
 ---
 ## 部署到Cloud9(C9)
 

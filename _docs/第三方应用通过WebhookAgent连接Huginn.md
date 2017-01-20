@@ -2,8 +2,8 @@
 title: 第三方应用服务使用 Webhook Agent 连接 Huginn
 layout: docs
 permalink: /docs/第三方应用通过WebhookAgent连接Huginn.html
-prevPage: network-image-node.html
-nextPage: map-node.html
+prevPage: 用Huginn，让你再也不会忘记带伞.html
+nextPage: 筛选RSS源，制作新的全文RSS源.html
 ---
 
 一般地，通过使用 Webhook Agent，你可以将任意数据导入进 Huginn 中进行加工处理。当数据通过 POST 的方式发送给 Webhook Agent 时，将会产生一个或多个事件，同时触发其他的 Agents。你可以把 Webhook  Agent 当作成普通的 REST API 端点，通过触发这样的端点来实现相应的功能。在实践中，我们通过 POST 一个 JSON 文件给 Webhook Agent，利用相应的键-值就可以在 Huginn 中完成相应的操作。

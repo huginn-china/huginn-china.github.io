@@ -2,8 +2,8 @@
 title: 为什么要在 docker 上运行 Huginn
 layout: docs
 permalink: /docs/为什么要在docker上运行Huginn.html
-prevPage: network-image-node.html
-nextPage: map-node.html
+prevPage: Huginn的Apache配置.html
+nextPage: 使用PostgreSQL代替Mysql.html
 ---
 
 你可以通过 [docker](http://www.docker.com/) 部署 Huginn。

@@ -2,8 +2,8 @@
 title: 调试 Agent
 layout: docs
 permalink: /docs/调试Agent.html
-prevPage: network-image-node.html
-nextPage: map-node.html
+prevPage: 创建一个新的Agent.html
+nextPage: 私人功能开发说明.html
 ---
 
 假如你写了一个非常酷的 Agent，该 Agent 在彗星撞地球时产生事件，但是上一次彗星撞地球时，该 Agent 发生了错误，它没有产生事件。所以，如果你不想下一次再发生错误，最好的方法就是去调试。

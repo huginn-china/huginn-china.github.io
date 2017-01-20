@@ -2,8 +2,8 @@
 title: 部署到 Heroku
 layout: docs
 permalink: /docs/部署到Heroku.html
-prevPage: network-image-node.html
-nextPage: map-node.html
+prevPage: 用chefsolo和vagrant在各种服务器或VirtualBox上部署Huginn.html
+nextPage: 部署到Cloud9(C9).html
 ---
 
 如果要将 Huginn 部署到 Heroku 平台，我们**推荐你使用最便宜的付费方案**，但是，如果你要使用免费方案的话，你需要注意以下几点：

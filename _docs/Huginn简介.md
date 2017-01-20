@@ -1,9 +1,9 @@
 ---
 title: Huginn 简介
 layout: docs
-permalink: /docs/概述.html
+permalink: /docs/Huginn简介.html
+nextPage: 在Ubuntu-Debian上安装Huginn.html
 ---
-
 
 Huginn 是一个用于构建在线执行自动化任务的系统，它可以监控网页变化、聚合第三方应用并且根据设定的触发条件执行自动化操作，你可以将它看作是一个可以运行在自己服务器上的 Yahoo!Pipes + IFTTT。该工具的作者为 [Andrew Cantino](http://andrewcantino.com/)，Github 上的项目地址为 https://github.com/cantino/huginn/， 已经有上万的 star，而且该项目活跃度非常高，一直都有人在更新代码。
 

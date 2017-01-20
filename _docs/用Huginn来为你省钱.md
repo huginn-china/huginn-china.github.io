@@ -2,8 +2,8 @@
 title: 用 Huginn 来为你省钱
 layout: docs
 permalink: /docs/用Huginn来为你省钱.html
-prevPage: network-image-node.html
-nextPage: map-node.html
+prevPage: 利用Liquid模板引擎格式化事件.html
+nextPage: 第三方应用通过WebhookAgent连接Huginn.html
 ---
 
 
