@@ -8,7 +8,7 @@ id: home
 	<div class="container">
 		<div class="hero-title">Huginn 听你号令，自动通知你的关注，自动触发执行你的任务！</div>
 		<a href="/docs/Huginn简介.html" class="btn">Huginn 简介</a>
-		<a href="https://github.com/cantino/huginn" class="btn btn-outlined">查看 Github</a>
+		<a href="https://github.com/huginn-china" class="btn btn-outlined">查看 Github</a>
 	</div>
 </div>
 
