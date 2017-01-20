@@ -2,7 +2,7 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Huginn-China | 用 Huginn，让你再也不会忘记带伞</title>
+    <title>Huginn-China | 部署到 Heroku</title>
     <link rel='stylesheet' href='/static/main.css' type='text/css'/>
     <link rel='stylesheet' href='/static/media.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
@@ -24,11 +24,11 @@
 	<meta name="msapplication-TileImage" content="/static/images/favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="用 Huginn，让你再也不会忘记带伞" />
+    <meta property="og:title" content="部署到 Heroku" />
     <meta property="og:site_name" content="Huginn-China">
     <meta property='og:description' content='Huginn-China'>
     <meta property='og:image' content='http://asyncdisplaykit.org/static/asyncdisplaykit-og-image.png'>
-    <meta property='og:url' content="http://asyncdisplaykit.org/docs/用Huginn，让你再也不会忘记带伞.html">
+    <meta property='og:url' content="http://asyncdisplaykit.org/docs/部署到Heroku.html">
     <meta property='og:type' content='website'>
     <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
     <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
@@ -858,7 +858,7 @@
             
             
             <li>
-              <a href=/docs/部署到Heroku.html>
+              <a href=/docs/部署到Heroku.html class="active">
                 部署到 Heroku
               </a>
             </li>
@@ -1398,7 +1398,7 @@
             
             
             <li>
-              <a href=/docs/用Huginn，让你再也不会忘记带伞.html class="active">
+              <a href=/docs/用Huginn，让你再也不会忘记带伞.html>
                 用 Huginn，让你再也不会忘记带伞
               </a>
             </li>
@@ -2011,50 +2011,77 @@
 	
 	<div class="content">
 		<h1>
-	      用 Huginn，让你再也不会忘记带伞
+	      部署到 Heroku
 	    </h1>
 	    <p></p>
 	
-	    <p><a href="https://github.com/cantino/huginn">Huginn</a> 是一年来我在广大开源协作者的支持下一直在做的一款工具。Huginn是建立数据采集和数据反应日常生活的任务的轻型基础设施,把它看成是一个开源的 Yahoo! Pipes，IFTTT，或 Zapier。如果，在未来，Huginn 演变成类似 Google Now，但没有潜在的因素，因为您可以控制​​和主机自己的数据，它不会让我感到吃惊。</p>
+	    <p>如果要将 Huginn 部署到 Heroku 平台，我们<strong>推荐你使用最便宜的付费方案</strong>，但是，如果你要使用免费方案的话，你需要注意以下几点：</p>
 
-<p>我没有做过的所有共享，可以与 Huginn 建的事情了很好的工作，但我决心开始。</p>
+<ul>
+  <li>使用 Heroku 免费方案的用户，其每个网站在 30 分钟内无人访问后便会自动关闭，再有人访问时才会自动重新打开，因此为了使 Huginn 网站能长时间运行，可以使用类似 <a href="https://uptimerobot.com/">uptimerobot</a> 的网站监控服务，不停地ping你的 Huginn 网站地址；</li>
+  <li>Heroku 免费方案只允许用户所有 app 每个月运行总时长不超过 550 个小时（绑定信用卡的用户可额外再获得 450 个小时），这意味着你无法保证部署好的 Huginn 网站每个月每天都在运行，因此，你可选择绑定信用卡，获得额外时长，从而使得Huginn 网站能每天都在运行；</li>
+  <li>Heroku 免费方案提供给用户的 Postgres 数据库存储的数据不能超过 10000 行，因此你需要控制 Agent 生成事件的保留周期，同时限制数据库中 Agent 日志文件的长度，比如 <code class="highlighter-rouge">heroku config:set AGENT_LOG_LENGTH=20</code>。</li>
+</ul>
 
-<p>因此，在这篇文章中，一个很简单的例子：</p>
+<h3 id="heroku">初次部署到Heroku的操作步骤：</h3>
 
-<p><strong>问题：</strong> 我总是忘记查看天气，忘记带伞，被淋成落汤鸡。
-<strong>解决方案：</strong> 当你所在地区有雨的时候，Huginn 每天早晨会向您发送电子邮件（或短信）。</p>
-
-<p>在服务器上已经安装 Huginn，制作一个新的天气 Agent：</p>
-
-<p><img src="https://ws1.sinaimg.cn/large/70b88a6bjw1f602jxqdogj20of03edg2.jpg" alt="" /></p>
-
-<p>你只需要将自己邮政编码（或位置代码）和 Wunderground 一个免费的API密钥。设置代理在晚上10点运行，这样它收集的数据是明天的天气。</p>
-
-<p><img src="https://ws2.sinaimg.cn/large/70b88a6bjw1f602m5nr7aj21iq128124.jpg" alt="" /></p>
-
-<p>一旦你保存你的新WeatherAgent，现在是时候来建立一个TriggerAgent。你需要把你刚才创建的WeatherAgent设置为源。</p>
-
-<p><img src="http://ww2.sinaimg.cn/large/70b88a6bjw1f602n8393nj21hg14ggxj.jpg" alt="" /></p>
-
-<p>TriggerAgents 包含一套规则，所有这一切都必须为触发火灾匹配。在这种情况下，我们只需要一个规则来匹配该Wunderground API天气事件的条件属性。我们会做一个正则表达式（正则表达式）对阵此属性，寻找写着“雨”或“风暴”。当触发火灾，将输出与消息的事件“带把雨伞！它看起来像“<条件>'明天'<位置>'”。这些&lt;...&gt;字段将通过从事件在这种情况下是filtered-，从您刚才WeatherAgent事件相应的属性填写。该截图显示了代理的选项正在被编辑为JSON，使其更容易为你阅读。您可以使用编辑器模式。</位置></条件></p>
-
-<p>最后，我们只需要代理给我们发电子邮件的Trigger Agent的事件。我们将使用一个DigestEmailAgent。它可以在一个特定的时间，将它收到的事件一次性地使用Email Agent发送电子邮件，或者wilioAgent发送短信。</p>
-
-<p>设置的事件的日程安排在早上6点运行，这样你醒来就可以收到电子邮件。记得为你刚刚创建的下雨警报事件设置来源。</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/70b88a6bjw1f602r69lalj21hu0ve0zs.jpg" alt="" /></p>
-
-<p>就是这样！现在，您会在早上6点的早晨，当雨水在你的面积预计收到一封电子邮件。保持干爽！</p>
-
-<p>我会尽快发布更多的例子。你想看到什么样的Huginn教程，告诉我吧！</p>
+<ol>
+  <li>注册 <a href="https://www.heroku.com/">Heroku</a> 平台账号，然后下载安装 <a href="https://toolbelt.heroku.com/">Heroku Toolbelt</a>；</li>
+  <li>远程登录 Heroku： <code class="highlighter-rouge">heroku login</code></li>
+  <li>创建 app：<code class="highlighter-rouge">heroku create xxx</code>（xxx 为 app 的名字，下同）；</li>
+  <li>将 app 下载到本地：<code class="highlighter-rouge">heroku git:clone --app xxx</code></li>
+  <li>将 <a href="https://github.com/cantino/huginn">huginn</a> 源代码全部下载拷贝到本地 app 的文件夹内；</li>
+  <li>进入 app 文件目录，依次执行命令：<code class="highlighter-rouge">cp .env.example .env</code>  和 <code class="highlighter-rouge">bundle</code>；</li>
+  <li>提交代码变更：<code class="highlighter-rouge">git add .</code>、<code class="highlighter-rouge">git commit -am 'commit code'</code>；</li>
+  <li>最后，执行脚本：<code class="highlighter-rouge">bin/setup_heroku</code>，完成部署。</li>
+</ol>
 
 <blockquote>
-  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="http://blog.andrewcantino.com/blog/2014/01/12/never-forget-your-umbrella-again-with-huginn">Never Forget Your Umbrella Again, With Huginn</a></p>
+  <p>Windows 用户可能无法使用 <code class="highlighter-rouge">bundle</code> 命令，你需要安装虚拟机操作，或者可以使用云 IDE 来完成以上步骤，比如<a href="https://c9.io/">Cloud9</a>。</p>
+</blockquote>
+
+<h3 id="huginn">更新已经部署好的 Huginn</h3>
+
+<p>Huginn 的功能还在继续开发过程中，在将 Huginn 部署到 Heroku 平台之后，可以通过以下命令来更新 Huginn 的代码：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git fetch origin
+git merge origin/master
+git push -f heroku master # 更新 Heroku 平台上的 Huginn 代码
+heroku run rake db:migrate # 迁移数据库到最新状态的 Huginn（尽管不需要每次更新时都运行该命令，但是安全起见，最好每次更新代码时，都运行该命令）
+</code></pre>
+</div>
+
+<h3 id="section">使用自己的邮箱服务器</h3>
+
+<p>在安装过程中默认使用的是 SendGrid 的邮箱服务器（安装后需要自行配置），你也可以使用其他邮箱服务器，下面以谷歌邮箱服务器为例，需要进行以下配置：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>heroku config:set SMTP_DOMAIN=google.com
+heroku config:set SMTP_USER_NAME=you@gmail.com
+heroku config:set SMTP_PASSWORD=somepassword
+heroku config:set SMTP_SERVER=smtp.gmail.com
+heroku config:set EMAIL_FROM_ADDRESS=you@gmail.com # 指定显示的发件人邮箱地址
+</code></pre>
+</div>
+<blockquote>
+  <p>假如你的 SMTP（邮件传输协议）密码中包含特殊字符（比如 #、&amp;、$ 等），你需要将密码包含在引号当中，像这样：SMTP 密码 = “My$Password#With&amp;SpecialChars”，假如你没有这么做的话，你会在 logs 文件中看到类似如下的错误信息：
+Exception during check. end of file reached: /usr/lib/ruby/2.2.0/net/protocol.rb:153:in read_nonblock’ /usr/lib/ruby/2.2.0/net/protocol.rb:153:inrbuf_fill’ /usr/lib/ruby/2.2.0/net/protocol.rb:13…</p>
+</blockquote>
+
+<h3 id="section-1">备份你的数据</h3>
+
+<p>参见 <a href="https://devcenter.heroku.com/articles/heroku-postgres-import-export">Heroku 的官方文档</a></p>
+
+<h3 id="job-worker">同时运行多个 Job Worker</h3>
+
+<p>在默认情况下，Huginn 每次只能运行一个 Agent，使用很多的 Agent 或者频繁地调用外部服务可能需要更多的 DelayedJob worker（见 Job Management 页面）。为了同时运行多个 Agent，可以同时运行多个 Job Worker，需要重新配置 Procfile 文件，具体设置请参见：https://github.com/cantino/huginn/blob/master/Procfile#L33-L50</p>
+
+<blockquote>
+  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译并修改，已经获得项目作者授权，项目原文访问 <a href="https://github.com/cantino/huginn/blob/master/doc/heroku/install.md">Deploy to Heroku</a></p>
 </blockquote>
 
 
 	    
-	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/用Huginn，让你再也不会忘记带伞.md" target="_blank">Edit on GitHub</a></p>
+	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/部署到Heroku.md" target="_blank">Edit on GitHub</a></p>
 
 	
 	    <div class="docs-prevnext">

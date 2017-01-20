@@ -7,7 +7,7 @@ id: home
 <div class="hero">
 	<div class="container">
 		<div class="hero-title">Huginn 听你号令，自动通知你的关注，自动触发执行你的任务！</div>
-		<a href="/docs/getting-started.html" class="btn">Get Started</a>
+		<a href="/docs/%E6%A6%82%E8%BF%B0.html" class="btn">Get Started</a>
 		<a href="https://github.com/cantino/huginn" class="btn btn-outlined">View on GitHub</a>
 	</div>
 </div>
@@ -20,7 +20,7 @@ id: home
 		
 		
 		<p>
-		    想获得更多, <a href = "/docs/getting-started.html">查看我们的文档!</a>
+		    想获得更多, <a href = "/docs/%E6%A6%82%E8%BF%B0.html">查看我们的文档!</a>
 		</p>
 	</article>
 </div>

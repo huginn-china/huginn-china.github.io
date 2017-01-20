@@ -2,7 +2,7 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Huginn-China | 用 Huginn，让你再也不会忘记带伞</title>
+    <title>Huginn-China | 使用 ManualEventAgent</title>
     <link rel='stylesheet' href='/static/main.css' type='text/css'/>
     <link rel='stylesheet' href='/static/media.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
@@ -24,11 +24,11 @@
 	<meta name="msapplication-TileImage" content="/static/images/favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="用 Huginn，让你再也不会忘记带伞" />
+    <meta property="og:title" content="使用 ManualEventAgent" />
     <meta property="og:site_name" content="Huginn-China">
     <meta property='og:description' content='Huginn-China'>
     <meta property='og:image' content='http://asyncdisplaykit.org/static/asyncdisplaykit-og-image.png'>
-    <meta property='og:url' content="http://asyncdisplaykit.org/docs/用Huginn，让你再也不会忘记带伞.html">
+    <meta property='og:url' content="http://asyncdisplaykit.org/docs/使用ManualEventAgent.html">
     <meta property='og:type' content='website'>
     <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
     <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
@@ -1045,7 +1045,7 @@
             
             
             <li>
-              <a href=/docs/使用ManualEventAgent.html>
+              <a href=/docs/使用ManualEventAgent.html class="active">
                 使用 ManualEventAgent
               </a>
             </li>
@@ -1398,7 +1398,7 @@
             
             
             <li>
-              <a href=/docs/用Huginn，让你再也不会忘记带伞.html class="active">
+              <a href=/docs/用Huginn，让你再也不会忘记带伞.html>
                 用 Huginn，让你再也不会忘记带伞
               </a>
             </li>
@@ -2011,50 +2011,28 @@
 	
 	<div class="content">
 		<h1>
-	      用 Huginn，让你再也不会忘记带伞
+	      使用 ManualEventAgent
 	    </h1>
 	    <p></p>
 	
-	    <p><a href="https://github.com/cantino/huginn">Huginn</a> 是一年来我在广大开源协作者的支持下一直在做的一款工具。Huginn是建立数据采集和数据反应日常生活的任务的轻型基础设施,把它看成是一个开源的 Yahoo! Pipes，IFTTT，或 Zapier。如果，在未来，Huginn 演变成类似 Google Now，但没有潜在的因素，因为您可以控制​​和主机自己的数据，它不会让我感到吃惊。</p>
+	    <p>Manual Event Agent 是 Huginn 中最有用的工具之一， 可以用来开发和调试 Agent，从而帮助开发者创建事件并传递给其他的 Agent。通过一个任意大小或复杂程度的 JSON 格式的表单，Manual Event Agent 可以让用户精确地定义一个事件的具体内容。下面是具体的使用方法：</p>
 
-<p>我没有做过的所有共享，可以与 Huginn 建的事情了很好的工作，但我决心开始。</p>
-
-<p>因此，在这篇文章中，一个很简单的例子：</p>
-
-<p><strong>问题：</strong> 我总是忘记查看天气，忘记带伞，被淋成落汤鸡。
-<strong>解决方案：</strong> 当你所在地区有雨的时候，Huginn 每天早晨会向您发送电子邮件（或短信）。</p>
-
-<p>在服务器上已经安装 Huginn，制作一个新的天气 Agent：</p>
-
-<p><img src="https://ws1.sinaimg.cn/large/70b88a6bjw1f602jxqdogj20of03edg2.jpg" alt="" /></p>
-
-<p>你只需要将自己邮政编码（或位置代码）和 Wunderground 一个免费的API密钥。设置代理在晚上10点运行，这样它收集的数据是明天的天气。</p>
-
-<p><img src="https://ws2.sinaimg.cn/large/70b88a6bjw1f602m5nr7aj21iq128124.jpg" alt="" /></p>
-
-<p>一旦你保存你的新WeatherAgent，现在是时候来建立一个TriggerAgent。你需要把你刚才创建的WeatherAgent设置为源。</p>
-
-<p><img src="http://ww2.sinaimg.cn/large/70b88a6bjw1f602n8393nj21hg14ggxj.jpg" alt="" /></p>
-
-<p>TriggerAgents 包含一套规则，所有这一切都必须为触发火灾匹配。在这种情况下，我们只需要一个规则来匹配该Wunderground API天气事件的条件属性。我们会做一个正则表达式（正则表达式）对阵此属性，寻找写着“雨”或“风暴”。当触发火灾，将输出与消息的事件“带把雨伞！它看起来像“<条件>'明天'<位置>'”。这些&lt;...&gt;字段将通过从事件在这种情况下是filtered-，从您刚才WeatherAgent事件相应的属性填写。该截图显示了代理的选项正在被编辑为JSON，使其更容易为你阅读。您可以使用编辑器模式。</位置></条件></p>
-
-<p>最后，我们只需要代理给我们发电子邮件的Trigger Agent的事件。我们将使用一个DigestEmailAgent。它可以在一个特定的时间，将它收到的事件一次性地使用Email Agent发送电子邮件，或者wilioAgent发送短信。</p>
-
-<p>设置的事件的日程安排在早上6点运行，这样你醒来就可以收到电子邮件。记得为你刚刚创建的下雨警报事件设置来源。</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/70b88a6bjw1f602r69lalj21hu0ve0zs.jpg" alt="" /></p>
-
-<p>就是这样！现在，您会在早上6点的早晨，当雨水在你的面积预计收到一封电子邮件。保持干爽！</p>
-
-<p>我会尽快发布更多的例子。你想看到什么样的Huginn教程，告诉我吧！</p>
+<ul>
+  <li>首先，新建一个 Manual Event Agent 实例。这个实例可以包含在已存在的 Scenario 中，或者是独立的。</li>
+  <li>将 Manual Event Agent 与待测试或调试的 Agent 联系起来，方法是将其作为该 Agent 的事件源。需要记住的是，任何 agent 都可以有一个或者多个事件源。</li>
+  <li>在 Agents 列表或者 Scenario 图表中，点击 Manual Event Agent，然后再点击 Summary，就可以看到 Manual Event Agent 的界面。</li>
+  <li>在 Option 的输入框里，输入用来描述待发送事件的 JSON 格式的内容。下面是一个简单的示例：
+	{ “message”: “Hello, world!” }</li>
+  <li>最后，点击 Submit 按钮。这个手动创建的事件将会传递给连接的 Agent。</li>
+</ul>
 
 <blockquote>
-  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="http://blog.andrewcantino.com/blog/2014/01/12/never-forget-your-umbrella-again-with-huginn">Never Forget Your Umbrella Again, With Huginn</a></p>
+  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 中文网 翻译，已经获得项目作者授权，原文请访问：<a href="https://github.com/cantino/huginn/wiki/Using-the-ManualEventAgent">Using the ManualEventAgent</a></p>
 </blockquote>
 
 
 	    
-	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/用Huginn，让你再也不会忘记带伞.md" target="_blank">Edit on GitHub</a></p>
+	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/使用ManualEventAgent.md" target="_blank">Edit on GitHub</a></p>
 
 	
 	    <div class="docs-prevnext">

@@ -2,7 +2,7 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Huginn-China | 用 Huginn，让你再也不会忘记带伞</title>
+    <title>Huginn-China | 让所有网页变成RSS —— Huginn</title>
     <link rel='stylesheet' href='/static/main.css' type='text/css'/>
     <link rel='stylesheet' href='/static/media.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
@@ -24,11 +24,11 @@
 	<meta name="msapplication-TileImage" content="/static/images/favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="用 Huginn，让你再也不会忘记带伞" />
+    <meta property="og:title" content="让所有网页变成RSS —— Huginn" />
     <meta property="og:site_name" content="Huginn-China">
     <meta property='og:description' content='Huginn-China'>
     <meta property='og:image' content='http://asyncdisplaykit.org/static/asyncdisplaykit-og-image.png'>
-    <meta property='og:url' content="http://asyncdisplaykit.org/docs/用Huginn，让你再也不会忘记带伞.html">
+    <meta property='og:url' content="http://asyncdisplaykit.org/docs/让所有网页变成RSS——Huginn.html">
     <meta property='og:type' content='website'>
     <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
     <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
@@ -1016,7 +1016,7 @@
             
             
             <li>
-              <a href=/docs/让所有网页变成RSS——Huginn.html>
+              <a href=/docs/让所有网页变成RSS——Huginn.html class="active">
                 让所有网页变成RSS —— Huginn
               </a>
             </li>
@@ -1398,7 +1398,7 @@
             
             
             <li>
-              <a href=/docs/用Huginn，让你再也不会忘记带伞.html class="active">
+              <a href=/docs/用Huginn，让你再也不会忘记带伞.html>
                 用 Huginn，让你再也不会忘记带伞
               </a>
             </li>
@@ -2011,50 +2011,157 @@
 	
 	<div class="content">
 		<h1>
-	      用 Huginn，让你再也不会忘记带伞
+	      让所有网页变成RSS —— Huginn
 	    </h1>
 	    <p></p>
 	
-	    <p><a href="https://github.com/cantino/huginn">Huginn</a> 是一年来我在广大开源协作者的支持下一直在做的一款工具。Huginn是建立数据采集和数据反应日常生活的任务的轻型基础设施,把它看成是一个开源的 Yahoo! Pipes，IFTTT，或 Zapier。如果，在未来，Huginn 演变成类似 Google Now，但没有潜在的因素，因为您可以控制​​和主机自己的数据，它不会让我感到吃惊。</p>
+	    <p>这篇文章主要介绍如何把将一个网页制作成为RSS。</p>
 
-<p>我没有做过的所有共享，可以与 Huginn 建的事情了很好的工作，但我决心开始。</p>
+<p>开始之前首先需要解释几个东西。</p>
 
-<p>因此，在这篇文章中，一个很简单的例子：</p>
+<ol>
+  <li>网页的格式是 html，RSS 的格式是 xml。</li>
+  <li>xpath 是你用来确定网页元素的方法，这一步我会有一个很简单的方法来教大家怎么去搞定元素的确定。</li>
+  <li>由于是工作流的形式，所以我们整个的过程其实有两步，第一步是抓取网页的信息，第二步是返回 RSS 的地址。</li>
+</ol>
 
-<p><strong>问题：</strong> 我总是忘记查看天气，忘记带伞，被淋成落汤鸡。
-<strong>解决方案：</strong> 当你所在地区有雨的时候，Huginn 每天早晨会向您发送电子邮件（或短信）。</p>
+<p>下面开始举例子。我们现在要把<a href="http://walkginkgo.com/">我的博客 http://walkginkgo.com/</a>转换成 RSS。</p>
 
-<p>在服务器上已经安装 Huginn，制作一个新的天气 Agent：</p>
+<p>按照3中说的，我们需要先抓取网页信息。抓取网页信息，要创建一个 Website Agent。</p>
 
-<p><img src="https://ws1.sinaimg.cn/large/70b88a6bjw1f602jxqdogj20of03edg2.jpg" alt="" /></p>
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn1.png" alt="2016-07-15_huginn1.png" /></p>
 
-<p>你只需要将自己邮政编码（或位置代码）和 Wunderground 一个免费的API密钥。设置代理在晚上10点运行，这样它收集的数据是明天的天气。</p>
+<p>按照图示，名字随便起，其他可以先默认。（全部解释太麻烦）</p>
 
-<p><img src="https://ws2.sinaimg.cn/large/70b88a6bjw1f602m5nr7aj21iq128124.jpg" alt="" /></p>
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn2.png" alt="2016-07-15_huginn2.png" /></p>
 
-<p>一旦你保存你的新WeatherAgent，现在是时候来建立一个TriggerAgent。你需要把你刚才创建的WeatherAgent设置为源。</p>
+<p>然后是关键的一步，我们要开始确定网页的元素。</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/70b88a6bjw1f602n8393nj21hg14ggxj.jpg" alt="" /></p>
+<p>点击 <strong>Toggle View</strong> 到文本编辑模式。我们要修改我圈出来的两个地方。</p>
 
-<p>TriggerAgents 包含一套规则，所有这一切都必须为触发火灾匹配。在这种情况下，我们只需要一个规则来匹配该Wunderground API天气事件的条件属性。我们会做一个正则表达式（正则表达式）对阵此属性，寻找写着“雨”或“风暴”。当触发火灾，将输出与消息的事件“带把雨伞！它看起来像“<条件>'明天'<位置>'”。这些&lt;...&gt;字段将通过从事件在这种情况下是filtered-，从您刚才WeatherAgent事件相应的属性填写。该截图显示了代理的选项正在被编辑为JSON，使其更容易为你阅读。您可以使用编辑器模式。</位置></条件></p>
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn3.png" alt="2016-07-15_huginn3.png" /></p>
 
-<p>最后，我们只需要代理给我们发电子邮件的Trigger Agent的事件。我们将使用一个DigestEmailAgent。它可以在一个特定的时间，将它收到的事件一次性地使用Email Agent发送电子邮件，或者wilioAgent发送短信。</p>
+<p>我们需要修改url到我们的网址，在这里就是 <strong>http://walkginkgo.com/</strong> 了。</p>
 
-<p>设置的事件的日程安排在早上6点运行，这样你醒来就可以收到电子邮件。记得为你刚刚创建的下雨警报事件设置来源。</p>
+<p><strong>extract</strong> 是我们要提取的信息，我们这里要提取博客的题目，网址，发布日期，简述。</p>
 
-<p><img src="http://ww3.sinaimg.cn/large/70b88a6bjw1f602r69lalj21hu0ve0zs.jpg" alt="" /></p>
+<p>我们现在打开<a href="http://walkginkgo.com/">tesths</a>这个博客进去来看怎么抓取元素。</p>
 
-<p>就是这样！现在，您会在早上6点的早晨，当雨水在你的面积预计收到一封电子邮件。保持干爽！</p>
+<p>在 Chrome 打开，然后选择你要的元素，<strong>右键</strong>选择 <strong>Inspect</strong>。可以看到 Chrome 下面的审查元素信息已经出来了。</p>
 
-<p>我会尽快发布更多的例子。你想看到什么样的Huginn教程，告诉我吧！</p>
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn4.png" alt="2016-07-15_huginn4.png" /></p>
+
+<p>可以看到我们的元素在 <strong>span</strong> 标签里，这时候我们如图<strong>右键</strong>选择之后然后复制。</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn5.png" alt="2016-07-15_huginn5.png" /></p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn6.png" alt="2016-07-15_huginn6.png" /></p>
+
+<p>复制的东西如下。</p>
+
+<p><code class="highlighter-rouge">/html/body/div[1]/div/div/ul/li[1]/h2/a/span/text()</code></p>
+
+<p>把之前的 css 改成 xpath 然后直接复制就可以了。点击下面的 Dry Run，可以看到我们的标题已经搞定了。（css 使用见下面备注）</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn7.png" alt="2016-07-15_huginn7.png" /></p>
+
+<p>但是还有两个问题，一个是，我们只爬了一个标题，二是标题有空格。</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn8.png" alt="2016-07-15_huginn8.png" /></p>
+
+<p><strong>解决问题1</strong>，需要把我们的 xpath 改成这样。</p>
+
+<p><code class="highlighter-rouge">/html/body/div[1]/div/div/ul/li/h2/a/span/text()</code></p>
+
+<p>是因为 <strong>li[1]</strong> 代表我们第一个标题，所以把[1]去了就可以了。</p>
+
+<p><strong>解决问题2</strong>，需要我们加上一句话。</p>
+
+<p><code class="highlighter-rouge">"value": "normalize-space(.)"</code></p>
+
+<p>这句话的意思就是把空格去了。</p>
+
+<p>最后就是这样。</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn9.png" alt="2016-07-15_huginn9.png" /></p>
+
+<p>下面我们把链接按照这个方法也爬下来。找到链接的地方，因为链接在a标签里面，所以我们要加一个 value，选择到 href。剩下我就不具体叙述了，我把最后完整的截图出来。</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn10.png" alt="2016-07-15_huginn10.png" /></p>
+
+<p>日期什么的方法类似，也不多说。这样其实没有什么 html 的基础也可以爬网页了。</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn11.png" alt="2016-07-15_huginn11.png" /></p>
+
+<p><strong>Dry Run</strong> 之后的结果如图。</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn22.png" alt="2016-07-15_huginn22.png" /></p>
+
+<p>别忘记 <strong>Save</strong>。</p>
 
 <blockquote>
-  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="http://blog.andrewcantino.com/blog/2014/01/12/never-forget-your-umbrella-again-with-huginn">Never Forget Your Umbrella Again, With Huginn</a></p>
+  <p>备注：官方默认创建用的是 css，Chrome 提供了复制 css 的方式，格式稍微改动成和官方例子那样<strong>空格</strong>来代替<strong>&gt;</strong>就可以了。</p>
 </blockquote>
+
+<p>这么我们就完成了工作的第一步，抓取网页，下一步要输出 RSS。</p>
+
+<p>前面都随便写，记得 <strong>Sources</strong> 选择我们之前的 tesths blog。</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn13.png" alt="2016-07-15_huginn13.png" /></p>
+
+<p>下面是继续配置 <strong>Option</strong>，这就比之前简单了。</p>
+
+<p>但是注意我们之前的链接没有前面的 <strong>http://walkginkgo.com/</strong> 这一串，我们要加上。</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn14.png" alt="2016-07-15_huginn14.png" /></p>
+
+<p>最后完整的是这样的。</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn15.png" alt="2016-07-15_huginn15.png" /></p>
+
+<p>还要记得把你博客的 link 加上。</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn23.png" alt="2016-07-15_huginn23.png" /></p>
+
+<p>之后选择 <strong>Save</strong> 就到了这。</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn16.png" alt="2016-07-15_huginn16.png" /></p>
+
+<p>可以看到已经有 xml 格式的输出了。</p>
+
+<p>最后一步我们要烧录 RSS。如果你有自己的域名的话，可以直接使用 Huginn 提供的 xml 地址。如果没有域名的话，可以使用谷歌家的谷歌家的服务 <a href="https://feedburner.google.com/">feedburner</a></p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn17.png" alt="2016-07-15_huginn17.png" /></p>
+
+<p>然后next。</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn18.png" alt="2016-07-15_huginn18.png" /></p>
+
+<p>继续next。</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn19.png" alt="2016-07-15_huginn19.png" /></p>
+
+<p>把网址复制到 Feedly 里面，大功告成！</p>
+
+<h2 id="section">更多备注</h2>
+
+<p>因为我个人 RSS 主要是看有没有更新，所以抓取的内容不详细，需要抓取全文在手机看的话就自己倒腾啦。</p>
+
+<p>如果输出 RSS 没有结果的话，可以看下是否允许，没运行点击一下 run 就可以了。</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn21.png" alt="2016-07-15_huginn21.png" /></p>
+
+<p>如果你遇到输出的结果有问题，可以看下是不是event多了。</p>
+
+<p><img src="http://o9791noio.bkt.clouddn.com/2016-07-15_huginn20.png" alt="2016-07-15_huginn20.png" /></p>
+
+<p>如果多了就全部删除重新运行。</p>
+
+<p>总之真的没有很难，最难的是 xpath 获取元素，但是我已经用了最简单的方式来教大家了，剩下的无论是不是专业学编程的都能很快搞定啦，就看大家怎么去玩这个了。</p>
 
 
 	    
-	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/用Huginn，让你再也不会忘记带伞.md" target="_blank">Edit on GitHub</a></p>
+	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/让所有网页变成RSS——Huginn.md" target="_blank">Edit on GitHub</a></p>
 
 	
 	    <div class="docs-prevnext">

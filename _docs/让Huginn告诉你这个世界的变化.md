@@ -5,8 +5,9 @@ permalink: /docs/让Huginn告诉你这个世界的变化.html
 prevPage: network-image-node.html
 nextPage: map-node.html
 ---
+# 让Huginn告诉你这个世界的变化
 
-这是我关于 Huginn 的第二篇文章，Huginn 是一款被开发者广泛支持的一款工具。Huginn 是建立数据采集和数据反应任务日常生活重量轻的平台。把它看成是一个开源 的 Yahoo! Pipes, IFTTT, 或 Zapier。
+这是我关于 Huginn 的第二篇文章，Huginn 是一款被开发者广泛支持的一款工具。Huginn 是建立数据采集和数据反应任务日常生活重量轻的平台。把它看成是一个开源的 Yahoo! Pipes, IFTTT, 或 Zapier。
 
 在这篇文章中，我将告诉你如何设置关于世界的长期提醒。基本上，你的 Huginn 将能够回答诸如“下次超级碗的日期公布时告诉我”，“当我们发现引力波告诉我”，或“有向旧金山海啸时告诉我”的任意请求。
 

@@ -2,7 +2,7 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Huginn-China | 用 Huginn，让你再也不会忘记带伞</title>
+    <title>Huginn-China | 筛选 RSS 源，制作新的全文 RSS 源</title>
     <link rel='stylesheet' href='/static/main.css' type='text/css'/>
     <link rel='stylesheet' href='/static/media.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
@@ -24,11 +24,11 @@
 	<meta name="msapplication-TileImage" content="/static/images/favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="用 Huginn，让你再也不会忘记带伞" />
+    <meta property="og:title" content="筛选 RSS 源，制作新的全文 RSS 源" />
     <meta property="og:site_name" content="Huginn-China">
     <meta property='og:description' content='Huginn-China'>
     <meta property='og:image' content='http://asyncdisplaykit.org/static/asyncdisplaykit-og-image.png'>
-    <meta property='og:url' content="http://asyncdisplaykit.org/docs/用Huginn，让你再也不会忘记带伞.html">
+    <meta property='og:url' content="http://asyncdisplaykit.org/docs/筛选RSS源，制作新的全文RSS源.html">
     <meta property='og:type' content='website'>
     <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
     <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
@@ -1398,7 +1398,7 @@
             
             
             <li>
-              <a href=/docs/用Huginn，让你再也不会忘记带伞.html class="active">
+              <a href=/docs/用Huginn，让你再也不会忘记带伞.html>
                 用 Huginn，让你再也不会忘记带伞
               </a>
             </li>
@@ -1570,7 +1570,7 @@
             
             
             <li>
-              <a href=/docs/筛选RSS源，制作新的全文RSS源.html>
+              <a href=/docs/筛选RSS源，制作新的全文RSS源.html class="active">
                 筛选 RSS 源，制作新的全文 RSS 源
               </a>
             </li>
@@ -2011,50 +2011,101 @@
 	
 	<div class="content">
 		<h1>
-	      用 Huginn，让你再也不会忘记带伞
+	      筛选 RSS 源，制作新的全文 RSS 源
 	    </h1>
 	    <p></p>
 	
-	    <p><a href="https://github.com/cantino/huginn">Huginn</a> 是一年来我在广大开源协作者的支持下一直在做的一款工具。Huginn是建立数据采集和数据反应日常生活的任务的轻型基础设施,把它看成是一个开源的 Yahoo! Pipes，IFTTT，或 Zapier。如果，在未来，Huginn 演变成类似 Google Now，但没有潜在的因素，因为您可以控制​​和主机自己的数据，它不会让我感到吃惊。</p>
+	    <p><strong>问题</strong>：假如你喜欢的网站只提供摘要型的 RSS 源，但是你希望能在 RSS 阅读器中阅读全文 RSS，同时还希望它只推送某些特定的文章
+<strong>解决方法</strong>：利用 Huginn 制作一个经过筛选的全文 RSS 源，实现方法如下：
+1. RSSAgent：获取并解析网站提供的 RSS 源；
+2. TriggerAgent：过滤 RSS 源中的项目；
+3. WebsiteAgent：通过 RSS 源中的项目获取文章的全文；
+4. DataOutputAgent：输出全文 RSS。</p>
 
-<p>我没有做过的所有共享，可以与 Huginn 建的事情了很好的工作，但我决心开始。</p>
+<h2 id="rssagent">1. RSSAgent</h2>
 
-<p>因此，在这篇文章中，一个很简单的例子：</p>
+<p><em>Name</em>: Example RSS In
+<code class="highlighter-rouge"><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nt">"expected_update_period_in_days"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"clean"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.businesscat.happyjar.com/feed/"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></p>
 
-<p><strong>问题：</strong> 我总是忘记查看天气，忘记带伞，被淋成落汤鸡。
-<strong>解决方案：</strong> 当你所在地区有雨的时候，Huginn 每天早晨会向您发送电子邮件（或短信）。</p>
+<h2 id="triggeragent">2. TriggerAgent</h2>
 
-<p>在服务器上已经安装 Huginn，制作一个新的天气 Agent：</p>
+<p><em>Name</em>: Example filter
+<em>Event sources</em>: Example RSS In
+<em>Propagate immediately</em>: Yes
+<code class="highlighter-rouge"><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nt">"expected_receive_period_in_days"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"keep_event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"rules"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"regex"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">".*\\/comic\\/.*"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"url"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code>
+&gt; <strong>注意</strong>：将 <code class="highlighter-rouge">keep_event</code> 设置为 <code class="highlighter-rouge">true</code>，从而将解析的项目元素传递给下一个 agent</p>
 
-<p><img src="https://ws1.sinaimg.cn/large/70b88a6bjw1f602jxqdogj20of03edg2.jpg" alt="" /></p>
+<h2 id="websiteagent">3. WebsiteAgent</h2>
 
-<p>你只需要将自己邮政编码（或位置代码）和 Wunderground 一个免费的API密钥。设置代理在晚上10点运行，这样它收集的数据是明天的天气。</p>
+<p><em>Name</em>: Example page fetch<br />
+<em>Event sources</em>: Example filter<br />
+<em>Propagate immediately</em>: Yes<br />
+<code class="highlighter-rouge"><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nt">"expected_update_period_in_days"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"html"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"merge"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"extract"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"imgurl"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"css"</span><span class="p">:</span><span class="w"> </span><span class="s2">"\#comic img"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@src"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code>
+&gt; <strong>注意</strong>：将 <code class="highlighter-rouge">mode</code> 设置为 <code class="highlighter-rouge">merge</code>，从而将解析的项目元素传递给下一个 agent</p>
 
-<p><img src="https://ws2.sinaimg.cn/large/70b88a6bjw1f602m5nr7aj21iq128124.jpg" alt="" /></p>
+<h2 id="dataoutputagent">4. DataOutputAgent</h2>
 
-<p>一旦你保存你的新WeatherAgent，现在是时候来建立一个TriggerAgent。你需要把你刚才创建的WeatherAgent设置为源。</p>
+<p><em>Name</em>: Example Rss out<br />
+<em>Event sources</em>: Example page fetch<br />
+<em>Propagate immediately</em>: Yes</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/70b88a6bjw1f602n8393nj21hg14ggxj.jpg" alt="" /></p>
-
-<p>TriggerAgents 包含一套规则，所有这一切都必须为触发火灾匹配。在这种情况下，我们只需要一个规则来匹配该Wunderground API天气事件的条件属性。我们会做一个正则表达式（正则表达式）对阵此属性，寻找写着“雨”或“风暴”。当触发火灾，将输出与消息的事件“带把雨伞！它看起来像“<条件>'明天'<位置>'”。这些&lt;...&gt;字段将通过从事件在这种情况下是filtered-，从您刚才WeatherAgent事件相应的属性填写。该截图显示了代理的选项正在被编辑为JSON，使其更容易为你阅读。您可以使用编辑器模式。</位置></条件></p>
-
-<p>最后，我们只需要代理给我们发电子邮件的Trigger Agent的事件。我们将使用一个DigestEmailAgent。它可以在一个特定的时间，将它收到的事件一次性地使用Email Agent发送电子邮件，或者wilioAgent发送短信。</p>
-
-<p>设置的事件的日程安排在早上6点运行，这样你醒来就可以收到电子邮件。记得为你刚刚创建的下雨警报事件设置来源。</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/70b88a6bjw1f602r69lalj21hu0ve0zs.jpg" alt="" /></p>
-
-<p>就是这样！现在，您会在早上6点的早晨，当雨水在你的面积预计收到一封电子邮件。保持干爽！</p>
-
-<p>我会尽快发布更多的例子。你想看到什么样的Huginn教程，告诉我吧！</p>
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"secrets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"examplerss"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nt">"expected_receive_period_in_days"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"template"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Business Cat full comic feed"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is a feed of recent Business Cat comics generated by Huginn"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"item"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;img src=\"\" /&gt;"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"pubDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
 
 <blockquote>
-  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="http://blog.andrewcantino.com/blog/2014/01/12/never-forget-your-umbrella-again-with-huginn">Never Forget Your Umbrella Again, With Huginn</a></p>
+  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="https://github.com/cantino/huginn/wiki/Generating-a-filtered-full-text-RSS-feed">Generating a filtered full-text RSS feed from an existing RSS feed</a></p>
 </blockquote>
 
 
 	    
-	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/用Huginn，让你再也不会忘记带伞.md" target="_blank">Edit on GitHub</a></p>
+	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/筛选RSS源，制作新的全文RSS源.md" target="_blank">Edit on GitHub</a></p>
 
 	
 	    <div class="docs-prevnext">

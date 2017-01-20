@@ -2,7 +2,7 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Huginn-China | 用 Huginn，让你再也不会忘记带伞</title>
+    <title>Huginn-China | 创建一个新的 Agent</title>
     <link rel='stylesheet' href='/static/main.css' type='text/css'/>
     <link rel='stylesheet' href='/static/media.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
@@ -24,11 +24,11 @@
 	<meta name="msapplication-TileImage" content="/static/images/favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="用 Huginn，让你再也不会忘记带伞" />
+    <meta property="og:title" content="创建一个新的 Agent" />
     <meta property="og:site_name" content="Huginn-China">
     <meta property='og:description' content='Huginn-China'>
     <meta property='og:image' content='http://asyncdisplaykit.org/static/asyncdisplaykit-og-image.png'>
-    <meta property='og:url' content="http://asyncdisplaykit.org/docs/用Huginn，让你再也不会忘记带伞.html">
+    <meta property='og:url' content="http://asyncdisplaykit.org/docs/创建一个新的Agent.html">
     <meta property='og:type' content='website'>
     <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
     <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
@@ -1398,7 +1398,7 @@
             
             
             <li>
-              <a href=/docs/用Huginn，让你再也不会忘记带伞.html class="active">
+              <a href=/docs/用Huginn，让你再也不会忘记带伞.html>
                 用 Huginn，让你再也不会忘记带伞
               </a>
             </li>
@@ -1778,7 +1778,7 @@
             
             
             <li>
-              <a href=/docs/创建一个新的Agent.html>
+              <a href=/docs/创建一个新的Agent.html class="active">
                 创建一个新的 Agent
               </a>
             </li>
@@ -2011,50 +2011,151 @@
 	
 	<div class="content">
 		<h1>
-	      用 Huginn，让你再也不会忘记带伞
+	      创建一个新的 Agent
 	    </h1>
 	    <p></p>
 	
-	    <p><a href="https://github.com/cantino/huginn">Huginn</a> 是一年来我在广大开源协作者的支持下一直在做的一款工具。Huginn是建立数据采集和数据反应日常生活的任务的轻型基础设施,把它看成是一个开源的 Yahoo! Pipes，IFTTT，或 Zapier。如果，在未来，Huginn 演变成类似 Google Now，但没有潜在的因素，因为您可以控制​​和主机自己的数据，它不会让我感到吃惊。</p>
+	    <p><em>请注意：Huginn API 一直在改进，因此一些无用的 Agent 或将被放弃。我们非常希望您能将您的使用方法以及 API 应该更改什么告诉我们。查看 <a href="https://github.com/cantino/huginn/issues/60">#60</a> 和 <a href="https://github.com/cantino/huginn/issues/293">#293</a>。</em></p>
 
-<p>我没有做过的所有共享，可以与 Huginn 建的事情了很好的工作，但我决心开始。</p>
+<p>Huginn Agent 能创建和接受事件，并且能按照预定的安排在特定的时间或时间间隔运行代码。创建一个 Agent 并不难，你可以很轻松的从一个已存在的 Agent 创建一个子 Agent。</p>
 
-<p>因此，在这篇文章中，一个很简单的例子：</p>
+<p>Agent 保存在 <code class="highlighter-rouge">app/models/agents</code>，RSpec 保存在 <code class="highlighter-rouge">spec/models/agents</code>。</p>
 
-<p><strong>问题：</strong> 我总是忘记查看天气，忘记带伞，被淋成落汤鸡。
-<strong>解决方案：</strong> 当你所在地区有雨的时候，Huginn 每天早晨会向您发送电子邮件（或短信）。</p>
+<h1 id="section">描述</h1>
 
-<p>在服务器上已经安装 Huginn，制作一个新的天气 Agent：</p>
+<p>使用 <code class="highlighter-rouge">description</code> 类方法描述你的 Agent。例如：</p>
 
-<p><img src="https://ws1.sinaimg.cn/large/70b88a6bjw1f602jxqdogj20of03edg2.jpg" alt="" /></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>description &lt;&lt;-MD
+  The WeatherAgent creates an event for the following day's weather at `zipcode`.
 
-<p>你只需要将自己邮政编码（或位置代码）和 Wunderground 一个免费的API密钥。设置代理在晚上10点运行，这样它收集的数据是明天的天气。</p>
+  You must setup an API key for Wunderground in order to use this Agent.
+MD
+</code></pre>
+</div>
 
-<p><img src="https://ws2.sinaimg.cn/large/70b88a6bjw1f602m5nr7aj21iq128124.jpg" alt="" /></p>
+<h1 id="section-1">选项</h1>
 
-<p>一旦你保存你的新WeatherAgent，现在是时候来建立一个TriggerAgent。你需要把你刚才创建的WeatherAgent设置为源。</p>
+<p>Agent 是用户使用 JSON 结构进行配置的，<code class="highlighter-rouge">options</code>(选项)非常容易使用，同时还可以使用 <a href="https://github.com/cantino/huginn/wiki/Formatting-Events-using-Liquid">Liquid</a> 模板引擎进行更改。你应该定义一个 <code class="highlighter-rouge">default_options</code> 方法，该方法用来定义默认配置，另外，你还应该定义一个 <code class="highlighter-rouge">validate_options</code> 方法，该方法会验证 <code class="highlighter-rouge">options</code> 的内容，确保一些必填选项已经填写，通常情况下，你是不希望用户更改这些必填选项的，下面是一个具体的例子：</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/70b88a6bjw1f602n8393nj21hg14ggxj.jpg" alt="" /></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>def default_options
+  { 'zipcode' =&gt; '94103' }
+end
 
-<p>TriggerAgents 包含一套规则，所有这一切都必须为触发火灾匹配。在这种情况下，我们只需要一个规则来匹配该Wunderground API天气事件的条件属性。我们会做一个正则表达式（正则表达式）对阵此属性，寻找写着“雨”或“风暴”。当触发火灾，将输出与消息的事件“带把雨伞！它看起来像“<条件>'明天'<位置>'”。这些&lt;...&gt;字段将通过从事件在这种情况下是filtered-，从您刚才WeatherAgent事件相应的属性填写。该截图显示了代理的选项正在被编辑为JSON，使其更容易为你阅读。您可以使用编辑器模式。</位置></条件></p>
+def validate_options
+  errors.add(:base， 'zipcode is required') unless options['zipcode'].present?
+end
+</code></pre>
+</div>
 
-<p>最后，我们只需要代理给我们发电子邮件的Trigger Agent的事件。我们将使用一个DigestEmailAgent。它可以在一个特定的时间，将它收到的事件一次性地使用Email Agent发送电子邮件，或者wilioAgent发送短信。</p>
+<h1 id="section-2">时间表</h1>
 
-<p>设置的事件的日程安排在早上6点运行，这样你醒来就可以收到电子邮件。记得为你刚刚创建的下雨警报事件设置来源。</p>
+<p>Agent 可以被设定在特定的时间或一定的时间间隔运行，当设定的时间被触发，Agent 内的 <code class="highlighter-rouge">check</code> 方法将会被调用。如果你的 Agent 是可调度的，需要定义 <code class="highlighter-rouge">default_schedule</code> 方法定义默认值，否则会调用 <code class="highlighter-rouge">cannot_be_scheduled!</code> 方法。可用的设定时间如下：<code class="highlighter-rouge">every_1m</code>， <code class="highlighter-rouge">every_2m</code>， <code class="highlighter-rouge">every_5m</code>， <code class="highlighter-rouge">every_10m</code>， <code class="highlighter-rouge">every_30m</code>， <code class="highlighter-rouge">every_1h</code>， <code class="highlighter-rouge">every_2h</code>， <code class="highlighter-rouge">every_5h</code>， <code class="highlighter-rouge">every_12h</code>， <code class="highlighter-rouge">every_1d</code>， <code class="highlighter-rouge">every_2d</code>， <code class="highlighter-rouge">every_7d</code>， <code class="highlighter-rouge">midnight</code>， <code class="highlighter-rouge">1am</code>， <code class="highlighter-rouge">2am</code>， <code class="highlighter-rouge">3am</code>， <code class="highlighter-rouge">4am</code>， <code class="highlighter-rouge">5am</code>， <code class="highlighter-rouge">6am</code>， <code class="highlighter-rouge">7am</code>， <code class="highlighter-rouge">8am</code>， <code class="highlighter-rouge">9am</code>， <code class="highlighter-rouge">10am</code>， <code class="highlighter-rouge">11am</code>， <code class="highlighter-rouge">noon</code>， <code class="highlighter-rouge">1pm</code>， <code class="highlighter-rouge">2pm</code>， <code class="highlighter-rouge">3pm</code>， <code class="highlighter-rouge">4pm</code>， <code class="highlighter-rouge">5pm</code>， <code class="highlighter-rouge">6pm</code>， <code class="highlighter-rouge">7pm</code>， <code class="highlighter-rouge">8pm</code>， <code class="highlighter-rouge">9pm</code>， <code class="highlighter-rouge">10pm</code>， <code class="highlighter-rouge">11pm</code>。</p>
 
-<p><img src="http://ww3.sinaimg.cn/large/70b88a6bjw1f602r69lalj21hu0ve0zs.jpg" alt="" /></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>default_schedule "8pm"
 
-<p>就是这样！现在，您会在早上6点的早晨，当雨水在你的面积预计收到一封电子邮件。保持干爽！</p>
+def check
+  wunderground.forecast_for(interpolated['zipcode'])['forecast']['simpleforecast']['forecastday'].each do |day|
+    if is_tomorrow?(day)
+      create_event :payload =&gt; day.merge('zipcode' =&gt; interpolated['zipcode'])
+    end
+  end
+end
+</code></pre>
+</div>
 
-<p>我会尽快发布更多的例子。你想看到什么样的Huginn教程，告诉我吧！</p>
+<p>如果你的Agent创建了事件，比如像 <a href="https://github.com/cantino/huginn/blob/master/app/models/agents/weather_agent.rb">WeatherAgent</a> 这样，你应该使用 <code class="highlighter-rouge">event_description</code> 类方法描述这些事件包含哪些数据。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>event_description &lt;&lt;-MD
+  Events look like this:
+
+      {
+        'zipcode' =&gt; 12345，
+        ...
+        'maxhumidity' =&gt; 93，
+        'minhumidity' =&gt; 63
+      }
+MD
+</code></pre>
+</div>
+
+<h1 id="section-3">接受事件</h1>
+
+<p>如果你的 Agent 能接受事件，定义 <code class="highlighter-rouge">receive</code> 方法，该方法接受事件的 array，否则调用 <code class="highlighter-rouge">cannot_receive_events!</code> 注释掉它。</p>
+
+<h1 id="section-4">创建事件</h1>
+
+<p>在代码中，你的 Agent 可以通过 <code class="highlighter-rouge">create_event :payload =&gt; { ... }</code> 创建事件，否则调用 <code class="highlighter-rouge">cannot_create_events!</code> 注释掉它。</p>
+
+<h1 id="section-5">内存</h1>
+
+<p>Agent 拥有内存池，可以用在时间间隔内或接受事件之间维持状态。它会被自动加载并保存，可通过 <code class="highlighter-rouge">memory</code> 获得。</p>
+
+<h1 id="section-6">日志</h1>
+
+<p>你的 Agent 应该创建日志，尤其是错误发生的时候。通过调用 <code class="highlighter-rouge">log</code> 或 <code class="highlighter-rouge">error</code> 打印日志信息，还可以使用 <code class="highlighter-rouge">:outbound_event</code> 或 <code class="highlighter-rouge">:inbound_event</code> 监测事件有关的日志信息。</p>
+
+<h1 id="section-7">正在工作吗?</h1>
+
+<p>最好将 Agent 实例的运行状态反馈给用户。你需要定义 <code class="highlighter-rouge">working?</code> 方法，当一切正常的时候，该方法返回 true。下面的例子中，Agent 创建事件并有一个 <code class="highlighter-rouge">expected_update_period_in_days</code> 选项：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def working?
+  event_created_within?(interpolated['expected_update_period_in_days']) &amp;&amp; !recent_error_logs?
+end
+</code></pre>
+</div>
+
+<p>当然，你也可以写一些特殊的代码在 <code class="highlighter-rouge">working?</code> 方法中。</p>
+
+<h1 id="ui">UI</h1>
+
+<p>Agent 的 UI 文件保存在 <code class="highlighter-rouge">app/views/agents/agent_views/&lt;agent name&gt;/_show.html.erb</code> 中。如果你需要一些服务器端的功能，你可以 POST 数据到 <code class="highlighter-rouge">handle_details_post_agent_path</code>，使用 <code class="highlighter-rouge">handle_details_post</code> 方法进行处理。查看示例： <a href="https://github.com/cantino/huginn/blob/master/app/models/agents/manual_event_agent.rb">ManualEventAgent</a> 和 <a href="https://github.com/cantino/huginn/blob/master/app/views/agents/agent_views/manual_event_agent/_show.html.erb">details view</a>。</p>
+
+<h1 id="web">接收web请求</h1>
+
+<p>通过 <code class="highlighter-rouge">receive_web_request</code>，你的 Agent 可以接收 web 请求。你的 Agent URL 像这样 <code class="highlighter-rouge">http://yourserver.com/users/:user_id/web_requests/:agent_id/:secret</code>，<code class="highlighter-rouge">:user_id</code> 是用户的 ID， <code class="highlighter-rouge">:agent_id</code> 是 Agent 的 ID，<code class="highlighter-rouge">secret</code> 是用户的特殊 token，通过 <code class="highlighter-rouge">receive_web_request</code> 验证。推荐每次调用 <code class="highlighter-rouge">receive_web_request</code> 时都要验证 token。例如，你的 Agent 有一个 <code class="highlighter-rouge">secret</code> 的选项，每次调用 <code class="highlighter-rouge">receive_web_request</code> 时，都将其与 params[:secret] 进行比较，从而过滤掉那些无效的请求，</p>
+
+<p>你的 Agent 的 <code class="highlighter-rouge">receive_web_request</code> 方法应该返回一个数组 (status， MiME type) 作为响应，示例如下：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[{ status: "success" }， 200]
+</code></pre>
+</div>
+
+<p>或</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>["not found"， 404， 'text/plain']
+</code></pre>
+</div>
+
+<p>这里有一个 <code class="highlighter-rouge">receive_web_request</code> 例子，如下所示：</p>
+
+<div class="language-ruby highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">receive_web_request</span><span class="p">(</span><span class="n">params</span><span class="err">，</span> <span class="nb">method</span><span class="err">，</span> <span class="nb">format</span><span class="p">)</span>
+  <span class="n">secret</span> <span class="o">=</span> <span class="n">params</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="s1">'secret'</span><span class="p">)</span>
+  <span class="k">return</span> <span class="p">[</span><span class="s2">"Please use POST requests only"</span><span class="err">，</span> <span class="mi">401</span><span class="p">]</span> <span class="k">unless</span> <span class="nb">method</span> <span class="o">==</span> <span class="s2">"post"</span>
+  <span class="k">return</span> <span class="p">[</span><span class="s2">"Not Authorized"</span><span class="err">，</span> <span class="mi">401</span><span class="p">]</span> <span class="k">unless</span> <span class="n">secret</span> <span class="o">==</span> <span class="n">interpolated</span><span class="p">[</span><span class="s1">'secret'</span><span class="p">]</span>
+
+  <span class="c1"># do something with params here</span>
+
+  <span class="p">[</span><span class="s1">'Done!'</span><span class="err">，</span> <span class="mi">200</span><span class="err">，</span> <span class="s1">'text/plain'</span><span class="p">]</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
+<p>如果你需要从请求中获得更多的参数，也可以定义 <code class="highlighter-rouge">receive_web_request</code> 方法如下：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def receive_web_request(request)
+end
+</code></pre>
+</div>
+
+<p>在 <a href="https://github.com/cantino/huginn/blob/master/app/controllers/web_requests_controller.rb">WebRequestsController</a> 查看更多详细信息，可参考 <a href="https://github.com/cantino/huginn/blob/master/app/models/agents/webhook_agent.rb">WebhookAgent</a> 和 <a href="https://github.com/cantino/huginn/blob/master/app/models/agents/data_output_agent.rb">DataOutputAgent</a> 中的 <code class="highlighter-rouge">receive_web_request</code>。</p>
 
 <blockquote>
-  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="http://blog.andrewcantino.com/blog/2014/01/12/never-forget-your-umbrella-again-with-huginn">Never Forget Your Umbrella Again, With Huginn</a></p>
+  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="https://github.com/cantino/huginn/wiki/Creating-a-new-agent">Creating a new agent</a></p>
 </blockquote>
 
 
 	    
-	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/用Huginn，让你再也不会忘记带伞.md" target="_blank">Edit on GitHub</a></p>
+	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/创建一个新的Agent.md" target="_blank">Edit on GitHub</a></p>
 
 	
 	    <div class="docs-prevnext">

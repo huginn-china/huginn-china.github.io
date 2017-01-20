@@ -2,7 +2,7 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Huginn-China | 用 Huginn，让你再也不会忘记带伞</title>
+    <title>Huginn-China | 第三方应用服务使用 Webhook Agent 连接 Huginn</title>
     <link rel='stylesheet' href='/static/main.css' type='text/css'/>
     <link rel='stylesheet' href='/static/media.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
@@ -24,11 +24,11 @@
 	<meta name="msapplication-TileImage" content="/static/images/favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="用 Huginn，让你再也不会忘记带伞" />
+    <meta property="og:title" content="第三方应用服务使用 Webhook Agent 连接 Huginn" />
     <meta property="og:site_name" content="Huginn-China">
     <meta property='og:description' content='Huginn-China'>
     <meta property='og:image' content='http://asyncdisplaykit.org/static/asyncdisplaykit-og-image.png'>
-    <meta property='og:url' content="http://asyncdisplaykit.org/docs/用Huginn，让你再也不会忘记带伞.html">
+    <meta property='og:url' content="http://asyncdisplaykit.org/docs/第三方应用通过WebhookAgent连接Huginn.html">
     <meta property='og:type' content='website'>
     <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
     <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
@@ -1398,7 +1398,7 @@
             
             
             <li>
-              <a href=/docs/用Huginn，让你再也不会忘记带伞.html class="active">
+              <a href=/docs/用Huginn，让你再也不会忘记带伞.html>
                 用 Huginn，让你再也不会忘记带伞
               </a>
             </li>
@@ -1487,7 +1487,7 @@
             
             
             <li>
-              <a href=/docs/第三方应用通过WebhookAgent连接Huginn.html>
+              <a href=/docs/第三方应用通过WebhookAgent连接Huginn.html class="active">
                 第三方应用服务使用 Webhook Agent 连接 Huginn
               </a>
             </li>
@@ -2011,50 +2011,49 @@
 	
 	<div class="content">
 		<h1>
-	      用 Huginn，让你再也不会忘记带伞
+	      第三方应用服务使用 Webhook Agent 连接 Huginn
 	    </h1>
 	    <p></p>
 	
-	    <p><a href="https://github.com/cantino/huginn">Huginn</a> 是一年来我在广大开源协作者的支持下一直在做的一款工具。Huginn是建立数据采集和数据反应日常生活的任务的轻型基础设施,把它看成是一个开源的 Yahoo! Pipes，IFTTT，或 Zapier。如果，在未来，Huginn 演变成类似 Google Now，但没有潜在的因素，因为您可以控制​​和主机自己的数据，它不会让我感到吃惊。</p>
+	    <p>一般地，通过使用 Webhook Agent，你可以将任意数据导入进 Huginn 中进行加工处理。当数据通过 POST 的方式发送给 Webhook Agent 时，将会产生一个或多个事件，同时触发其他的 Agents。你可以把 Webhook  Agent 当作成普通的 REST API 端点，通过触发这样的端点来实现相应的功能。在实践中，我们通过 POST 一个 JSON 文件给 Webhook Agent，利用相应的键-值就可以在 Huginn 中完成相应的操作。</p>
 
-<p>我没有做过的所有共享，可以与 Huginn 建的事情了很好的工作，但我决心开始。</p>
+<h3 id="webhook-agent-urls">Webhook Agent URLs</h3>
 
-<p>因此，在这篇文章中，一个很简单的例子：</p>
+<p>Webhook Agent 产生的链接（URL）的大致是这样的：<code class="highlighter-rouge">https://huginn.example.com/users/1/web_requests/948/neverGonnaGiveYouUp</code>，下面对该 URL 做以下几点解释：
+* URL 中的 <code class="highlighter-rouge">/users/1</code> 部分代表的是 Huginn 用户，<code class="highlighter-rouge">/users/1</code> 指的是 Huginn 网站的管理员（admin），<code class="highlighter-rouge">/users/2</code> 指的是创建的第二个用户，其他的以此类推。
+* <code class="highlighter-rouge">/web_requests/</code> 可以认为是 Webhook Agent 的 REST API rail。 
+* <code class="highlighter-rouge">/948/</code> 代表的是 Huginn agent 的编号（这里的 agent 编号为948），对于不同的 Webhook Agent，该数字也是不同的。
+* 在 Webhook Agent 的配置中，<code class="highlighter-rouge">secret</code> 相当于 API key，用来认证来着外部的连接。针对不同的 Webhook Agent，最好使用不同的 <code class="highlighter-rouge">secret</code>，以防被其他人识破，这相对于一个密码。
+* 假如从外网登录你的 Huginn 网站需要通过反向代理和 HTTP 授权验证，那样的话，此时的链接应该类似下面这样：
+<code class="highlighter-rouge">https://webhookuser:webhookpassword@huginn.example.com/users/1/web_requests/948/neverGonnaLetYouDown</code>
+* 你的外部连接也可以来自与 Huginn 网站的同一主机，这样的话，就不需要担心 HTTP 授权的问题： <code class="highlighter-rouge">http://localhost:3000/users/1/web_requests/948/neverGonnaRunAroundAndDesertYou</code></p>
 
-<p><strong>问题：</strong> 我总是忘记查看天气，忘记带伞，被淋成落汤鸡。
-<strong>解决方案：</strong> 当你所在地区有雨的时候，Huginn 每天早晨会向您发送电子邮件（或短信）。</p>
+<h3 id="webhook-agent-">向 Webhook Agent 发送请求</h3>
 
-<p>在服务器上已经安装 Huginn，制作一个新的天气 Agent：</p>
+<p>目前，Webhook Agent 支持下面两种 HTTP 方式：
+* POST（默认）
+* GET</p>
 
-<p><img src="https://ws1.sinaimg.cn/large/70b88a6bjw1f602jxqdogj20of03edg2.jpg" alt="" /></p>
+<p><strong>通过 POST 方式连接 Webhook Agent 的必须是 JSON 格式的文件，所有向 Webhook Agent 的 HTTP 请求必须带有<code class="highlighter-rouge">Content-Type: application/json</code>的 HTTP header，否则可能会产生一些奇怪的错误。</strong></p>
 
-<p>你只需要将自己邮政编码（或位置代码）和 Wunderground 一个免费的API密钥。设置代理在晚上10点运行，这样它收集的数据是明天的天气。</p>
+<h3 id="section">使用案例：</h3>
 
-<p><img src="https://ws2.sinaimg.cn/large/70b88a6bjw1f602m5nr7aj21iq128124.jpg" alt="" /></p>
+<p>假如你需要在 python 中与 Webhook Agent 进行交互，使用 <a href="http://docs.python-requests.org/en/latest/">Requests</a> 模块进行请求，则可以参照下面的代码：</p>
 
-<p>一旦你保存你的新WeatherAgent，现在是时候来建立一个TriggerAgent。你需要把你刚才创建的WeatherAgent设置为源。</p>
-
-<p><img src="http://ww2.sinaimg.cn/large/70b88a6bjw1f602n8393nj21hg14ggxj.jpg" alt="" /></p>
-
-<p>TriggerAgents 包含一套规则，所有这一切都必须为触发火灾匹配。在这种情况下，我们只需要一个规则来匹配该Wunderground API天气事件的条件属性。我们会做一个正则表达式（正则表达式）对阵此属性，寻找写着“雨”或“风暴”。当触发火灾，将输出与消息的事件“带把雨伞！它看起来像“<条件>'明天'<位置>'”。这些&lt;...&gt;字段将通过从事件在这种情况下是filtered-，从您刚才WeatherAgent事件相应的属性填写。该截图显示了代理的选项正在被编辑为JSON，使其更容易为你阅读。您可以使用编辑器模式。</位置></条件></p>
-
-<p>最后，我们只需要代理给我们发电子邮件的Trigger Agent的事件。我们将使用一个DigestEmailAgent。它可以在一个特定的时间，将它收到的事件一次性地使用Email Agent发送电子邮件，或者wilioAgent发送短信。</p>
-
-<p>设置的事件的日程安排在早上6点运行，这样你醒来就可以收到电子邮件。记得为你刚刚创建的下雨警报事件设置来源。</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/70b88a6bjw1f602r69lalj21hu0ve0zs.jpg" alt="" /></p>
-
-<p>就是这样！现在，您会在早上6点的早晨，当雨水在你的面积预计收到一封电子邮件。保持干爽！</p>
-
-<p>我会尽快发布更多的例子。你想看到什么样的Huginn教程，告诉我吧！</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>search_results = ["https://www.example.com/", "http://site.example.com"]
+custom_headers = { "Content-Type": "application/json" } # HTTP header
+results = { "results": search_results }
+request = requests.post(webhook, data=json.dumps(results), headers=custom_headers) # 通过requests模块实现 POST 请求
+</code></pre>
+</div>
 
 <blockquote>
-  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="http://blog.andrewcantino.com/blog/2014/01/12/never-forget-your-umbrella-again-with-huginn">Never Forget Your Umbrella Again, With Huginn</a></p>
+  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="https://github.com/cantino/huginn/wiki/Using-a-Webhook-Agent-with-external-software">Using a Webhook Agent with external software</a></p>
 </blockquote>
 
 
 	    
-	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/用Huginn，让你再也不会忘记带伞.md" target="_blank">Edit on GitHub</a></p>
+	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/第三方应用通过WebhookAgent连接Huginn.md" target="_blank">Edit on GitHub</a></p>
 
 	
 	    <div class="docs-prevnext">

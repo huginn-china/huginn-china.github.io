@@ -6,7 +6,7 @@ prevPage: network-image-node.html
 nextPage: map-node.html
 ---
 
-[Huginn](https://github.com/cantino/huginn) 是一年来我在广大开源协作者的支持下一直在做的一款工具。Huginn 是建立数据采集和数据反应日常生活的任务的轻型基础设施,把它看成是一个开源的 Yahoo! Pipes，IFTTT，或 Zapier。如果，在未来，Huginn 演变成类似 Google Now，但没有潜在的因素，因为您可以控制​​和主机自己的数据，它不会让我感到吃惊。
+[Huginn](https://github.com/cantino/huginn) 是一年来我在广大开源协作者的支持下一直在做的一款工具。Huginn是建立数据采集和数据反应日常生活的任务的轻型基础设施,把它看成是一个开源的 Yahoo! Pipes，IFTTT，或 Zapier。如果，在未来，Huginn 演变成类似 Google Now，但没有潜在的因素，因为您可以控制​​和主机自己的数据，它不会让我感到吃惊。
 
 我没有做过的所有共享，可以与 Huginn 建的事情了很好的工作，但我决心开始。
 

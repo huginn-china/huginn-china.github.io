@@ -2,7 +2,7 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Huginn-China | 用 Huginn，让你再也不会忘记带伞</title>
+    <title>Huginn-China | 配置带有 OAuth 验证的应用</title>
     <link rel='stylesheet' href='/static/main.css' type='text/css'/>
     <link rel='stylesheet' href='/static/media.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
@@ -24,11 +24,11 @@
 	<meta name="msapplication-TileImage" content="/static/images/favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="用 Huginn，让你再也不会忘记带伞" />
+    <meta property="og:title" content="配置带有 OAuth 验证的应用" />
     <meta property="og:site_name" content="Huginn-China">
     <meta property='og:description' content='Huginn-China'>
     <meta property='og:image' content='http://asyncdisplaykit.org/static/asyncdisplaykit-og-image.png'>
-    <meta property='og:url' content="http://asyncdisplaykit.org/docs/用Huginn，让你再也不会忘记带伞.html">
+    <meta property='og:url' content="http://asyncdisplaykit.org/docs/配置带有OAuth验证的应用.html">
     <meta property='og:type' content='website'>
     <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
     <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
@@ -1398,7 +1398,7 @@
             
             
             <li>
-              <a href=/docs/用Huginn，让你再也不会忘记带伞.html class="active">
+              <a href=/docs/用Huginn，让你再也不会忘记带伞.html>
                 用 Huginn，让你再也不会忘记带伞
               </a>
             </li>
@@ -1748,7 +1748,7 @@
             
             
             <li>
-              <a href=/docs/配置带有OAuth验证的应用.html>
+              <a href=/docs/配置带有OAuth验证的应用.html class="active">
                 配置带有 OAuth 验证的应用
               </a>
             </li>
@@ -2011,50 +2011,149 @@
 	
 	<div class="content">
 		<h1>
-	      用 Huginn，让你再也不会忘记带伞
+	      配置带有 OAuth 验证的应用
 	    </h1>
 	    <p></p>
 	
-	    <p><a href="https://github.com/cantino/huginn">Huginn</a> 是一年来我在广大开源协作者的支持下一直在做的一款工具。Huginn是建立数据采集和数据反应日常生活的任务的轻型基础设施,把它看成是一个开源的 Yahoo! Pipes，IFTTT，或 Zapier。如果，在未来，Huginn 演变成类似 Google Now，但没有潜在的因素，因为您可以控制​​和主机自己的数据，它不会让我感到吃惊。</p>
+	    <h1 id="oauth-">配置带有 OAuth 验证的应用</h1>
 
-<p>我没有做过的所有共享，可以与 Huginn 建的事情了很好的工作，但我决心开始。</p>
+<p>为了使用新的集成服务，在第一次使用时，你需要通过这些外部应用服务的 OAuth 验证。</p>
 
-<p>因此，在这篇文章中，一个很简单的例子：</p>
+<h2 id="twitter">Twitter</h2>
 
-<p><strong>问题：</strong> 我总是忘记查看天气，忘记带伞，被淋成落汤鸡。
-<strong>解决方案：</strong> 当你所在地区有雨的时候，Huginn 每天早晨会向您发送电子邮件（或短信）。</p>
+<p>如果你还没有一个 Twitter 应用，请先访问 <a href="https://apps.twitter.com/">https://apps.twitter.com</a>。</p>
 
-<p>在服务器上已经安装 Huginn，制作一个新的天气 Agent：</p>
+<p>你需要给你的应用命名，比如：<code class="highlighter-rouge">John's Huginn</code> ，再添加一段描述，比如：
+<code class="highlighter-rouge">John's personal Huginn system (http://github.com/cantino/huginn)</code>， Website 中可以填入你的个人网站或者你的 Twitter 账户地址。</p>
 
-<p><img src="https://ws1.sinaimg.cn/large/70b88a6bjw1f602jxqdogj20of03edg2.jpg" alt="" /></p>
+<p>Callback URL 这一项非常重要，请参照如下格式填写： <code class="highlighter-rouge">http://&lt;your-huginn-domain.com&gt;/auth/twitter/callback</code>，其中 <code class="highlighter-rouge">&lt;your-huginn-domain.com&gt;</code> 换成你的 Huginn 网站的域名。</p>
 
-<p>你只需要将自己邮政编码（或位置代码）和 Wunderground 一个免费的API密钥。设置代理在晚上10点运行，这样它收集的数据是明天的天气。</p>
+<p>在创建的应用中，你需要找到并记下你的 “API Key” 和 “API Secret”，然后按照下面的说明操作：</p>
 
-<p><img src="https://ws2.sinaimg.cn/large/70b88a6bjw1f602m5nr7aj21iq128124.jpg" alt="" /></p>
+<ul>
+  <li>
+    <p>如果你的 Huginn 是自己搭建的，打开Huginn中的 <code class="highlighter-rouge">.env</code> 文件，将 <code class="highlighter-rouge">TWITTER_OAUTH_KEY</code> 设置为 <code class="highlighter-rouge">API Key</code>， <code class="highlighter-rouge">TWITTER_OAUTH_SECRET</code> 设置为 <code class="highlighter-rouge">API Secret</code></p>
+  </li>
+  <li>
+    <p>如果你是使用 Docker 容器部署的，将 <code class="highlighter-rouge">HUGINN_TWITTER_OAUTH_KEY</code> 设置为 <code class="highlighter-rouge">API Key</code> ，<code class="highlighter-rouge">HUGINN_TWITTER_OAUTH_SECRET</code> 设置为 <code class="highlighter-rouge">API Secret</code>。更多环境变量请查看<a href="https://hub.docker.com/r/cantino/huginn/">这里</a></p>
+  </li>
+  <li>
+    <p>如果你是在 Heroku 平台上部署的，通过下面的命令设置环境变量：<code class="highlighter-rouge">heroku config:set TWITTER_OAUTH_KEY=YOUR-KEY</code> 和 <code class="highlighter-rouge">heroku config:set TWITTER_OAUTH_SECRET=YOUR-SECRET</code></p>
+  </li>
+  <li>
+    <p>如果你是在 OpenShift 平台上部署的，通过下面的命令设置环境变量：<code class="highlighter-rouge">rhc env set TWITTER_OAUTH_KEY=YOUR-KEY</code> 和 <code class="highlighter-rouge">rhc env set TWITTER_OAUTH_SECRET=YOUR-SECRET</code></p>
+  </li>
+</ul>
 
-<p>一旦你保存你的新WeatherAgent，现在是时候来建立一个TriggerAgent。你需要把你刚才创建的WeatherAgent设置为源。</p>
+<p>在重启你的 Huginn 网站之后，你应该就可以在 Service 页面认证你的 Twitter。</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/70b88a6bjw1f602n8393nj21hg14ggxj.jpg" alt="" /></p>
+<p>如果你遇到问题，请查看最下方的调试说明。</p>
 
-<p>TriggerAgents 包含一套规则，所有这一切都必须为触发火灾匹配。在这种情况下，我们只需要一个规则来匹配该Wunderground API天气事件的条件属性。我们会做一个正则表达式（正则表达式）对阵此属性，寻找写着“雨”或“风暴”。当触发火灾，将输出与消息的事件“带把雨伞！它看起来像“<条件>'明天'<位置>'”。这些&lt;...&gt;字段将通过从事件在这种情况下是filtered-，从您刚才WeatherAgent事件相应的属性填写。该截图显示了代理的选项正在被编辑为JSON，使其更容易为你阅读。您可以使用编辑器模式。</位置></条件></p>
+<h2 id="signals-basecamp">37signals (Basecamp)</h2>
 
-<p>最后，我们只需要代理给我们发电子邮件的Trigger Agent的事件。我们将使用一个DigestEmailAgent。它可以在一个特定的时间，将它收到的事件一次性地使用Email Agent发送电子邮件，或者wilioAgent发送短信。</p>
+<p>如果你还没有一个 37signals 应用，先访问网站 <a href="https://integrate.37signals.com/">https://integrate.37signals.com/</a> 并创建一个新的应用。</p>
 
-<p>设置的事件的日程安排在早上6点运行，这样你醒来就可以收到电子邮件。记得为你刚刚创建的下雨警报事件设置来源。</p>
+<p>给你的应用选择一个名字，输入你的公司名（或者你自己的名字），然后输入一个网站的网址（可以是任何网址）。</p>
 
-<p><img src="http://ww3.sinaimg.cn/large/70b88a6bjw1f602r69lalj21hu0ve0zs.jpg" alt="" /></p>
+<p>在 “Integration” 部分，你需要勾选 “Basecamp”，而其他的 37signals 服务也是可以勾选的。</p>
 
-<p>就是这样！现在，您会在早上6点的早晨，当雨水在你的面积预计收到一封电子邮件。保持干爽！</p>
+<p>在 “Redirect URI” 中，请参照如下格式填写： <code class="highlighter-rouge">https://&lt;your-huginn-domain.com&gt;/auth/37signals/callback</code>，其中 <code class="highlighter-rouge">&lt;your-huginn-domain.com&gt;</code> 换成你的 Huginn 网站的域名。</p>
 
-<p>我会尽快发布更多的例子。你想看到什么样的Huginn教程，告诉我吧！</p>
+<p>在你创建完应用后，你就会看到 “Client ID” 和 “Client Secret”。跟 Twitter 一样，请按照下面的说明进行操作：</p>
+
+<ul>
+  <li>
+    <p>如果你的 Huginn 是自己搭建的，打开Huginn中的 <code class="highlighter-rouge">.env</code> 文件，设置 <code class="highlighter-rouge">THIRTY_SEVEN_SIGNALS_OAUTH_KEY</code> 设置成 <code class="highlighter-rouge">Client ID</code>， <code class="highlighter-rouge">THIRTY_SEVEN_SIGNALS_OAUTH_SECRET</code> 设置为 <code class="highlighter-rouge">Client Secret</code></p>
+  </li>
+  <li>
+    <p>如果你是在 Heroku 平台上部署的，通过下面的命令设置环境变量：<code class="highlighter-rouge">heroku config:set THIRTY_SEVEN_SIGNALS_OAUTH_KEY=YOUR-CLIENT-ID</code> 和 <code class="highlighter-rouge">heroku config:set THIRTY_SEVEN_SIGNALS_OAUTH_SECRET=YOUR-CLIENT-SECRET</code></p>
+  </li>
+  <li>
+    <p>如果你是在 OpenShift 平台上部署的，通过下面的命令设置环境变量：<code class="highlighter-rouge">rhc env set THIRTY_SEVEN_SIGNALS_OAUTH_KEY=YOUR-CLIENT-ID</code> 和 <code class="highlighter-rouge">rhc env set THIRTY_SEVEN_SIGNALS_OAUTH_SECRET=YOUR-CLIENT-SECRET</code>.</p>
+  </li>
+</ul>
+
+<p>在重启你的 Huginn 网站之后，你应该就可以在 Service 页面认证你的 37signals。</p>
+
+<h2 id="wunderlist">Wunderlist</h2>
+
+<p>如果你还没有一个 Wunderlist 应用，请先访问 <a href="https://developer.wunderlist.com/">https://developer.wunderlist.com/</a> 并点击 ‘Register Your App’。</p>
+
+<p>给你的应用选择一个名字，还需要填入 URL（可以是你的 huginn 网站或者其他任何网站地址）。</p>
+
+<p>在 “Authorization Callback URL” 中，请参照如下格式填写： <code class="highlighter-rouge">http://&lt;your-huginn-domain.com&gt;/auth/wunderlist/callback</code>，其中 <code class="highlighter-rouge">&lt;your-huginn-domain.com&gt;</code> 换成你的 Huginn 网站的域名。</p>
+
+<p>在你创建完应用后，你就会看到 “Client ID” 和 “Client Secret”。也跟 Twitter 一样，请按照下面的说明进行操作：</p>
+
+<ul>
+  <li>
+    <p>如果你的 Huginn 是自己搭建的，打开 Huginn 中的 <code class="highlighter-rouge">.env</code> 文件，设置 <code class="highlighter-rouge">WUNDERLIST_OAUTH_KEY</code> 设置成 <code class="highlighter-rouge">Client ID</code>， <code class="highlighter-rouge">WUNDERLIST_OAUTH_SECRET</code> 设置为 <code class="highlighter-rouge">Client Secret</code>.</p>
+  </li>
+  <li>
+    <p>如果你是在 Heroku 平台上部署的，通过下面的命令设置环境变量：<code class="highlighter-rouge">heroku config:set WUNDERLIST_OAUTH_KEY=YOUR-CLIENT-ID</code> 和 <code class="highlighter-rouge">heroku config:set WUNDERLIST_OAUTH_SECRET=YOUR-CLIENT-SECRET</code>。</p>
+  </li>
+  <li>
+    <p>如果你是在 OpenShift 平台上部署的，通过下面的命令设置环境变量：<code class="highlighter-rouge">rhc env set WUNDERLIST_OAUTH_KEY=YOUR-CLIENT-ID</code> 和 <code class="highlighter-rouge">rhc env set WUNDERLIST_OAUTH_SECRET=YOUR-CLIENT-SECRET</code>.</p>
+  </li>
+</ul>
+
+<p>在重启你的 Huginn 网站之后，你应该就可以在 Service 页面认证你的 Wunderlist。</p>
+
+<h2 id="dropbox">Dropbox</h2>
+
+<p>如果你还没有一个 Dropbox 应用，请先访问网址 <a href="https://developer.wunderlist.com/">https://developer.wunderlist.com/</a> ，再选择 dropbox API ，并允许它可以访问你的所有文件和文件夹，之后点击 ‘Create app’。</p>
+
+<p>给你的应用选择一个名字，还需要填入 URL（可以是你的 huginn 网站或者其他任何网站地址）。</p>
+
+<p>在 “Redirect URIs” 中，请参照如下格式填写： <code class="highlighter-rouge">https://&lt;your-huginn-domain.com&gt;/auth/dropbox/callback</code>，其中 <code class="highlighter-rouge">&lt;your-huginn-domain.com&gt;</code> 换成你的 Huginn 网站的域名。</p>
+
+<p>在你创建完应用后，你就会看到 “App key” 和 “App secret”。也跟 Twitter 一样，请按照下面说明进行操作：</p>
+
+<ul>
+  <li>
+    <p>如果你的 Huginn 是自己搭建的，打开 Huginn 中的 <code class="highlighter-rouge">.env</code> 文件，设置 <code class="highlighter-rouge">DROPBOX_OAUTH_KEY</code> 设置成 <code class="highlighter-rouge">App key</code>，<code class="highlighter-rouge">DROPBOX_OAUTH_SECRET</code> 设置为 <code class="highlighter-rouge">Client Secret</code>.</p>
+  </li>
+  <li>
+    <p>如果你是在 Heroku 平台上部署的，通过下面的命令设置环境变量：<code class="highlighter-rouge">rhc env set DROPBOX_OAUTH_KEY=YOUR-APP-KEY</code> 和 <code class="highlighter-rouge">rhc env set DROPBOX_OAUTH_SECRET=YOUR-APP-SECRET</code>。</p>
+  </li>
+  <li>
+    <p>如果你是在 OpenShift 平台上部署的，通过下面的命令设置环境变量：<code class="highlighter-rouge">rhc env set WUNDERLIST_OAUTH_KEY=YOUR-APP-KEY</code> 和 <code class="highlighter-rouge">rhc env set WUNDERLIST_OAUTH_SECRET=YOUR-APP-SECRET</code>.</p>
+  </li>
+</ul>
+
+<p>在重启你的 Huginn 网站之后，你应该就可以在 Service 页面认证你的 Dropbox。</p>
+
+<h2 id="tumblr">Tumblr（待验证修改）</h2>
+
+<p>为了整合 Tumblr，你必须在 huginn 的 <code class="highlighter-rouge">.env</code> 文件中定义 <code class="highlighter-rouge">OAuth key</code> 和 <code class="highlighter-rouge">secret</code>。但是，获得 <code class="highlighter-rouge">OAuth key</code> 并没有那么容易，下面是详细地操作说明。</p>
+
+<p>首先，如果你的 Huginn 是建立在 Apache 或者 Nginx 的网站服务器上，并且使用 HTTP 基本身份验证机制，你必须使用 <code class="highlighter-rouge">htpasswd</code> 命令来创建一个用户名和密码，从而提供访问的回调 URL：<code class="highlighter-rouge">sudo htpasswd -m /path/to/.htpasswd callback</code></p>
+
+<p>登陆到该网址 <a href="https://www.tumblr.com/oauth/apps">(https://www.tumblr.com/oauth/apps)</a>，点击 “+ Register application” 按钮，输入你的应用名（“Huginn”就是一个有效的应用名），输入一段文字说明，文字说明要尽量清楚地表达你的意图，以防 Tumblr 审核人员单方面地禁止你的 Huginn 使用其服务。默认地 Callback URL 在 Huginn 文档中没有说明，其地址的格式如下： <code class="highlighter-rouge">https://huginn.example.com/auth/tumblr/callback</code></p>
+
+<p>然而，因为在访问 Huginn 之前还要通过 HTTP 基本身份验证，所以你还需要提供用户名和密码，这样他们的 OAuth 才可以获得 callback URL，请参照如下格式进行填写：<code class="highlighter-rouge">callback:password@https://huginn.example.com/auth/tumblr/callback</code>。</p>
+
+<p>如果你愿意的话，还可以上传一个图标和应用网站的截图。填写验证码，点击 Register 按钮。你会看到你的 <code class="highlighter-rouge">OAuth key</code> 和 <code class="highlighter-rouge">secret</code>。在你的 <code class="highlighter-rouge">.env</code> 文件中 TUMBLR_OAUTH_KEY 和 TUMBLR_OAUTH_SECRET 填入这些，之后重启 Huginn。</p>
+
+<p>登陆 Huginn，点击 Services，再点击 “Authenticate with Tumblr” 按钮，并根据提示继续操作，最后返回到 Services 界面。当你创建了一个 Tumblr Publish Agent 之后，你会发现 Service 部分会被自动填写，这时你就可以配置它。</p>
+
+<p>我建议在一个新的标签页打开 <a href="https://www.tumblr.com/docs/en/api/v2#posting">Tumblr’s API documentation</a> 来帮助你配置 Tumblr Publish Agent。默认情况下，每一个可以配置的选项都可以在 Tumblr Publish Agent 进行配置，但是，有几个可以在 Tumblr 中进行的配置并没有它们相对应的选项，这是因为这些选项会导致 Agent 不能正确的保存，所以删除了这些不必要的选项。如果有任何问题，请使用默认设置。</p>
+
+<h1 id="oauth--1">调试 OAuth 应用</h1>
+
+<h2 id="twitter-1">调试 Twitter</h2>
+
+<h3 id="twitter-error-invalid-status-code-420">Twitter error: Invalid Status code 420</h3>
+
+<p>假如你在本地或者云端同时使用同样的 Twitter 凭证，或者偶然使用多线程运行多个实例，或者是多线程没有及时地关闭（也会造成多个副本实例在运行），这些都有可能会导致 420 错误。</p>
 
 <blockquote>
-  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="http://blog.andrewcantino.com/blog/2014/01/12/never-forget-your-umbrella-again-with-huginn">Never Forget Your Umbrella Again, With Huginn</a></p>
+  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，原文请访问：<a href="https://github.com/cantino/huginn/wiki/Configuring-OAuth-applications">Configuring OAuth applications</a>。</p>
 </blockquote>
 
 
 	    
-	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/用Huginn，让你再也不会忘记带伞.md" target="_blank">Edit on GitHub</a></p>
+	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/配置带有OAuth验证的应用.md" target="_blank">Edit on GitHub</a></p>
 
 	
 	    <div class="docs-prevnext">

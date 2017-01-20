@@ -2,7 +2,7 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Huginn-China | 用 Huginn，让你再也不会忘记带伞</title>
+    <title>Huginn-China | 在 Ubuntu/Debian 上安装 Huginn</title>
     <link rel='stylesheet' href='/static/main.css' type='text/css'/>
     <link rel='stylesheet' href='/static/media.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
@@ -24,11 +24,11 @@
 	<meta name="msapplication-TileImage" content="/static/images/favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="用 Huginn，让你再也不会忘记带伞" />
+    <meta property="og:title" content="在 Ubuntu/Debian 上安装 Huginn" />
     <meta property="og:site_name" content="Huginn-China">
     <meta property='og:description' content='Huginn-China'>
     <meta property='og:image' content='http://asyncdisplaykit.org/static/asyncdisplaykit-og-image.png'>
-    <meta property='og:url' content="http://asyncdisplaykit.org/docs/用Huginn，让你再也不会忘记带伞.html">
+    <meta property='og:url' content="http://asyncdisplaykit.org/docs/在Ubuntu-Debian上安装Huginn.html">
     <meta property='og:type' content='website'>
     <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
     <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
@@ -336,7 +336,7 @@
             
             
             <li>
-              <a href=/docs/在Ubuntu-Debian上安装Huginn.html>
+              <a href=/docs/在Ubuntu-Debian上安装Huginn.html class="active">
                 在 Ubuntu/Debian 上安装 Huginn
               </a>
             </li>
@@ -1398,7 +1398,7 @@
             
             
             <li>
-              <a href=/docs/用Huginn，让你再也不会忘记带伞.html class="active">
+              <a href=/docs/用Huginn，让你再也不会忘记带伞.html>
                 用 Huginn，让你再也不会忘记带伞
               </a>
             </li>
@@ -2011,58 +2011,509 @@
 	
 	<div class="content">
 		<h1>
-	      用 Huginn，让你再也不会忘记带伞
+	      在 Ubuntu/Debian 上安装 Huginn
 	    </h1>
 	    <p></p>
 	
-	    <p><a href="https://github.com/cantino/huginn">Huginn</a> 是一年来我在广大开源协作者的支持下一直在做的一款工具。Huginn是建立数据采集和数据反应日常生活的任务的轻型基础设施,把它看成是一个开源的 Yahoo! Pipes，IFTTT，或 Zapier。如果，在未来，Huginn 演变成类似 Google Now，但没有潜在的因素，因为您可以控制​​和主机自己的数据，它不会让我感到吃惊。</p>
+	    <h2 id="section">注意事项</h2>
 
-<p>我没有做过的所有共享，可以与 Huginn 建的事情了很好的工作，但我决心开始。</p>
+<p>由于文章中包含了很多你可能用到的例子和命令，所以这这份指南会很长。</p>
 
-<p>因此，在这篇文章中，一个很简单的例子：</p>
+<p>这份安装指南是基于 Ubuntu/Debian 创建的，已经在上述的系统上完成测试。请阅读<a href="https://github.com/cantino/huginn/blob/master/doc/manual/requirements.md">必需的硬件和操作系统</a>来了解所需的软硬件要求。</p>
 
-<p><strong>问题：</strong> 我总是忘记查看天气，忘记带伞，被淋成落汤鸡。
-<strong>解决方案：</strong> 当你所在地区有雨的时候，Huginn 每天早晨会向您发送电子邮件（或短信）。</p>
+<p>这是官方用来指导部署生产环境下 Huginn 的指南。如果需要在开发环境中进行安装或者想了解其他安装选项，请查看<a href="https://github.com/cantino/huginn#getting-started">开始</a>。</p>
 
-<p>在服务器上已经安装 Huginn，制作一个新的天气 Agent：</p>
+<p>以下步骤已被证明是有效的，在使用本指南时请务必谨慎以免有所偏离，并确保你没有违反任何我们所要求的安装环境。举个例子，很多人运行会出现权限问题，是因为他们改变了文件夹的位置，或者用其他用户运行了服务。</p>
 
-<p><img src="https://ws1.sinaimg.cn/large/70b88a6bjw1f602jxqdogj20of03edg2.jpg" alt="" /></p>
+<p>如果你在这份指导上发现任何 bug 或者错误，请提交一个 pull request。</p>
 
-<p>你只需要将自己邮政编码（或位置代码）和 Wunderground 一个免费的API密钥。设置代理在晚上10点运行，这样它收集的数据是明天的天气。</p>
+<p>如果没有特别声明，所有的命令都将运行在超级用户权限下。</p>
 
-<p><img src="https://ws2.sinaimg.cn/large/70b88a6bjw1f602m5nr7aj21iq128124.jpg" alt="" /></p>
+<p>当你在安装中遇到任何问题的时候，请查看<a href="https://github.com/cantino/huginn/blob/master/doc/manual/installation.md#troubleshooting">问题解决</a>一章节。</p>
 
-<p>一旦你保存你的新WeatherAgent，现在是时候来建立一个TriggerAgent。你需要把你刚才创建的WeatherAgent设置为源。</p>
+<h2 id="section-1">概述</h2>
 
-<p><img src="http://ww2.sinaimg.cn/large/70b88a6bjw1f602n8393nj21hg14ggxj.jpg" alt="" /></p>
+<p>Huginn的安装需要以下几个部分</p>
 
-<p>TriggerAgents 包含一套规则，所有这一切都必须为触发火灾匹配。在这种情况下，我们只需要一个规则来匹配该Wunderground API天气事件的条件属性。我们会做一个正则表达式（正则表达式）对阵此属性，寻找写着“雨”或“风暴”。当触发火灾，将输出与消息的事件“带把雨伞！它看起来像“<条件>'明天'<位置>'”。这些&lt;...&gt;字段将通过从事件在这种情况下是filtered-，从您刚才WeatherAgent事件相应的属性填写。该截图显示了代理的选项正在被编辑为JSON，使其更容易为你阅读。您可以使用编辑器模式。</位置></条件></p>
+<ol>
+  <li>软件包/独立包</li>
+  <li>Ruby</li>
+  <li>系统用户</li>
+  <li>数据库</li>
+  <li>Huginn</li>
+  <li>Nginx</li>
+</ol>
 
-<p>最后，我们只需要代理给我们发电子邮件的Trigger Agent的事件。我们将使用一个DigestEmailAgent。它可以在一个特定的时间，将它收到的事件一次性地使用Email Agent发送电子邮件，或者wilioAgent发送短信。</p>
+<h2 id="section-2">1. 软件包/独立包</h2>
 
-<p>设置的事件的日程安排在早上6点运行，这样你醒来就可以收到电子邮件。记得为你刚刚创建的下雨警报事件设置来源。</p>
+<p>Debian 没有默认安装 sudo，要确保你的系统是最新的然后安装。</p>
 
-<p><img src="http://ww3.sinaimg.cn/large/70b88a6bjw1f602r69lalj21hu0ve0zs.jpg" alt="" /></p>
+<div class="highlighter-rouge"><pre class="highlight"><code> # run as root!
+ apt-get update -y
+ apt-get upgrade -y
+ apt-get install sudo -y
+</code></pre>
+</div>
 
-<p>就是这样！现在，您会在早上6点的早晨，当雨水在你的面积预计收到一封电子邮件。保持干爽！</p>
+<p><strong>注释：</strong> 在整个安装过程中，一些文件需要人工修改，如果你对 vim 很熟悉的话，可以将 vim 设置为命令行下默认的编辑器。如果你不熟悉 vim 的话，请跳过这一步，并继续使用默认的编辑器。</p>
 
-<p>我会尽快发布更多的例子。你想看到什么样的Huginn教程，告诉我吧！</p>
+<div class="highlighter-rouge"><pre class="highlight"><code> # Install vim and set as default editor
+sudo apt-get install -y vim
+sudo update-alternatives --set editor /usr/bin/vim.basic
+</code></pre>
+</div>
+
+<p>引入 node.js 仓库（Ubuntu 和 Debian Jessie 可以跳过这一步）</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
+</code></pre>
+</div>
+
+<p>安装需要的包（需要先编译 Ruby 和本地 Ruby gems 的扩展）</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get install -y runit build-essential git zlib1g-dev libyaml-dev libssl-dev libgdbm-dev libreadline-dev libncurses5-dev libffi-dev curl openssh-server checkinstall libxml2-dev libxslt-dev libcurl4-openssl-dev libicu-dev logrotate python-docutils pkg-config cmake nodejs graphviz
+</code></pre>
+</div>
+
+<h2 id="ruby">2. Ruby</h2>
+
+<p>在 Huginn 的生产版本中，如果使用了像 <a href="http://rvm.io/">RVM</a>, <a href="https://github.com/sstephenson/rbenv">rbenv</a> 或者 <a href="https://github.com/postmodern/chruby">chruby</a> 这种 Ruby 的版本管理工具，会经常导致难以诊断的问题。所以我们不建议用版本管理程序来安装 Ruby，我们强烈建议各位根据我们下面的步骤使用系统自带的 Ruby。</p>
+
+<p>如果有老版本的 Ruby 版本，先移除：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get remove -y ruby1.8 ruby1.9
+</code></pre>
+</div>
+
+<p>下载新的 Ruby 版本并且进行编译：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mkdir /tmp/ruby &amp;&amp; cd /tmp/ruby
+curl -L --progress http://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.0.tar.bz2 | tar xj
+cd ruby-2.3.0
+./configure --disable-install-rdoc
+make -j`nproc`
+sudo make install
+</code></pre>
+</div>
+
+<p>用 gem 安装 bundler 和 foreman：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo gem install rake bundler foreman --no-ri --no-rdoc
+</code></pre>
+</div>
+
+<h2 id="section-3">4. 数据库</h2>
+
+<p>安装数据库的包</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get install -y mysql-server mysql-client libmysqlclient-dev
+
+# Pick a MySQL root password (can be anything), type it and press enter,
+# retype the MySQL root password and press enter
+</code></pre>
+</div>
+
+<p>检查安装的 MySQL 版本（只有当版本号大于 5.5.3 才能让<code class="highlighter-rouge">.env</code>配置文件正常运行）</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mysql --version
+</code></pre>
+</div>
+
+<p>保证安装安全</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo mysql_secure_installation
+</code></pre>
+</div>
+
+<p>登陆 MySQL</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mysql -u root -p
+
+# password输入MySQL的root密码
+</code></pre>
+</div>
+
+<p>创建一个 Huginn 的用户，不要先键入 <code class="highlighter-rouge">mysql&gt;</code>，这部分是要先做的。之后，选择一个真正的密码，并在命令行中替换 <code class="highlighter-rouge">$password</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mysql&gt; CREATE USER 'huginn'@'localhost' IDENTIFIED BY '$password';
+</code></pre>
+</div>
+
+<p>确保你可以使用 InnoDB 引擎，它可以保证一个长索引。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mysql&gt; SET storage_engine=INNODB;
+
+# 如果这一步失败，检查你MySQL的config文件 (e.g. `/etc/mysql/*.cnf`, `/etc/mysql/conf.d/*`)
+# 查看innodb的设置 "innodb = off"
+</code></pre>
+</div>
+
+<p>保证 Huginn 用户可以允许访问数据库</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mysql&gt; GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, LOCK TABLES ON `huginn_production`.* TO 'huginn'@'localhost';
+</code></pre>
+</div>
+
+<p>退出数据库</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mysql&gt; \q
+</code></pre>
+</div>
+
+<p>尝试用新用户连接新的数据库</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo -u huginn -H mysql -u huginn -p -D huginn_production
+
+# Type the password you replaced $password with earlier
+# 输入你之前选择的真实密码来代替 $password
+</code></pre>
+</div>
+
+<p>你现在应该看到 <code class="highlighter-rouge">ERROR 1049 (42000): Unknown database 'huginn_production'</code>，这说明我们操作是正确的。因为我们将会一会再创建数据库。</p>
+
+<p>现在完成了数据库部分的安装，你可以继续剩下部分的安装。</p>
+
+<h2 id="huginn">6. Huginn</h2>
+
+<h3 id="section-4">从源处克隆</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># 我们将安装 Huginn 在我们的 home 文件下的 “huginn” 用户文件夹
+cd /home/huginn
+
+# 从 Huginn 的仓库克隆
+sudo -u huginn -H git clone https://github.com/cantino/huginn.git -b master huginn
+
+ # 去 Huginn 的安装目录
+cd /home/huginn/huginn
+
+# 拷贝 Huginn 的默认配置
+sudo -u huginn -H cp .env.example .env
+
+# 在目录下创建 log/, tmp/pids/ and tmp/sockets/ directories
+sudo -u huginn mkdir -p log tmp/pids tmp/sockets
+
+# 确保 Huginn 可以向 log/ 和 tmp/文件夹中写入数据
+sudo chown -R huginn log/ tmp/
+sudo chmod -R u+rwX,go-w log/ tmp/
+
+# 确保权限设置正确
+sudo chmod -R u+rwX,go-w log/
+sudo chmod -R u+rwX tmp/
+sudo -u huginn -H chmod o-rwx .env
+
+# 拷贝 Unicorn 的默认配置文件
+sudo -u huginn -H cp config/unicorn.rb.example config/unicorn.rb
+</code></pre>
+</div>
+
+<h3 id="section-5">配置</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># 更新 Huginn 的配置文件，然后按照下面的说明继续做
+sudo -u huginn -H editor .env
+</code></pre>
+</div>
+
+<p>如果你使用本地的数据库服务器，数据库的配置文件看起来会是这样（使用你先前设置的 huginn 的 MySQL 用户密码）：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>DATABASE_ADAPTER=mysql2
+DATABASE_RECONNECT=true
+DATABASE_NAME=huginn_production
+DATABASE_POOL=20
+DATABASE_USERNAME=huginn
+DATABASE_PASSWORD='$password'
+#DATABASE_HOST=your-domain-here.com
+#DATABASE_PORT=3306
+#DATABASE_SOCKET=/tmp/mysql.sock
+
+DATABASE_ENCODING=utf8
+# MySQL only: If you are running a MySQL server &gt;=5.5.3, you should
+# set DATABASE_ENCODING to utf8mb4 instead of utf8 so that the
+# database can hold 4-byte UTF-8 characters like emoji.
+#DATABASE_ENCODING=utf8mb4
+</code></pre>
+</div>
+
+<p><strong>注意：</strong> 注释了 RAILS_ENV 设置以确保实在生产环境中运行的 Huginn</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>RAILS_ENV=production
+</code></pre>
+</div>
+
+<p>如果有需要的话，改变 Unicorn 的配置文件，在<a href="./requirements.md#unicorn-workers">requirements.md</a>中有一部分是专门解释并且建议合适的 unicorn 数量。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># 如果你有很高的实例需要运行，那么就增加 workers 的数量
+# 如果你的服务器至少有 2 GB 的内存，那么对大部分用户来说，2 个足够多了
+# 减少 worker 数量到 1
+sudo -u huginn -H editor config/unicorn.rb
+</code></pre>
+</div>
+
+<p><strong>注意:</strong> 保证你修改了 <code class="highlighter-rouge">.env</code> 和 <code class="highlighter-rouge">unicorn.rb</code> 来确保程序正常运行</p>
+
+<p><strong>注意:</strong> 我们建议使用 HTTPS，如果有需要的话，请访问 <a href="https://github.com/cantino/huginn/blob/master/doc/manual/installation.md#using-https">使用 HTTPS</a> 查看附加的步骤。</p>
+
+<p><strong>注释:</strong> 为了保证你的修改被保存，每次完成初始安装的时候，都要重新导入开始的脚本文件到 <code class="highlighter-rouge">.env</code>, <code class="highlighter-rouge">unicorn.rb</code> 或 <code class="highlighter-rouge">Procfile</code>!(详情见 <a href="https://github.com/cantino/huginn/blob/master/doc/manual/installation.md#install-init-script">Install Init Script</a>)</p>
+
+<h3 id="gems">安装Gems</h3>
+
+<p><strong>注释:</strong> 在bundler 1.5.2 版本，你可以使用 <code class="highlighter-rouge">bundle install -jN</code> (N 是进程数量)唤起多个进程来进行安装，还可以在一个可测量的差别时间内安装多个gem（快 60%）。用 <code class="highlighter-rouge">nproc</code> 检查你的处理器数量。更多信息请看 <a href="http://robots.thoughtbot.com/parallel-gem-installing-using-bundler">post</a>。首先要确定你的 bundler &gt;= 1.5.2 (运行 <code class="highlighter-rouge">bundle -v</code>)，有很多 <a href="https://devcenter.heroku.com/changelog-items/411">issues</a> 已经在1.5.2版本<a href="https://github.com/bundler/bundler/pull/2817">修复</a>。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo -u huginn -H bundle install --deployment --without development test
+</code></pre>
+</div>
+
+<h3 id="section-6">初始化数据库</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> # 创建数据库
+sudo -u huginn -H bundle exec rake db:create RAILS_ENV=production
+
+# 迁移到最新的版本
+sudo -u huginn -H bundle exec rake db:migrate RAILS_ENV=production
+
+# 创建管理员用户和示例 agent，并用默认的 admin/password 登陆
+sudo -u huginn -H bundle exec rake db:seed RAILS_ENV=production SEED_USERNAME=admin SEED_PASSWORD=password
+</code></pre>
+</div>
+
+<p>当完成的时候查看 <code class="highlighter-rouge">See the Huginn Wiki for more Agent examples!  https://github.com/cantino/huginn/wiki</code></p>
+
+<p><strong>注释:</strong> 这将会创建初始用户，你可以通过设置环境变量中的 <code class="highlighter-rouge">SEED_USERNAME</code> 和 <code class="highlighter-rouge">SEED_PASSWORD</code> 来改变你的用户名和密码。如果你不想改变密码（将会设置为默认密码），请等待全部安装完毕上线到互联网之后，你可以登陆到服务器上来改变你的密码。</p>
+
+<h3 id="section-7">编辑资源文件</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo -u huginn -H bundle exec rake assets:precompile RAILS_ENV=production
+</code></pre>
+</div>
+
+<h3 id="section-8">安装初始脚本</h3>
+
+<p>Huginn 使用 <a href="http://ddollar.github.io/foreman/">foreman</a> ，它会根据 <code class="highlighter-rouge">Procfile</code> 来迁移初始化脚本</p>
+
+<p>修改 <a href="https://github.com/cantino/huginn/blob/master/Procfile"><code class="highlighter-rouge">Procfile</code></a>，并选择一个我们建议的修改方案来适应生产环境。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo -u huginn -H editor Procfile
+</code></pre>
+</div>
+
+<p>注释这<a href="https://github.com/cantino/huginn/blob/master/Procfile#L6-L7">两行</a></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>web: bundle exec rails server -p ${PORT-3000} -b ${IP-0.0.0.0}
+jobs: bundle exec rails runner bin/threaded.rb
+</code></pre>
+</div>
+
+<p>使用这<a href="https://github.com/cantino/huginn/blob/master/Procfile#L24-L25">两行</a> 或 <a href="https://github.com/cantino/huginn/blob/master/Procfile#L28-L31">这些</a> (即移除注释)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># web: bundle exec unicorn -c config/unicorn.rb
+# jobs: bundle exec rails runner bin/threaded.rb
+</code></pre>
+</div>
+
+<p>引入初始化脚本：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo bundle exec rake production:export
+</code></pre>
+</div>
+
+<p><strong>注释：</strong> 当你每次修改 <code class="highlighter-rouge">.env</code> 或者 <code class="highlighter-rouge">Procfile</code> 的时候，一定要重新导入初始化脚本。</p>
+
+<h3 id="logrotate">建立 Logrotate</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo cp deployment/logrotate/huginn /etc/logrotate.d/huginn
+</code></pre>
+</div>
+
+<h3 id="huginn-1">确保你的Huginn实例正在运行</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo bundle exec rake production:status
+</code></pre>
+</div>
+
+<h2 id="nginx">7. Nginx</h2>
+
+<p><strong>注释：</strong> Nginx 是一个官方建议给 Huginn 使用的服务器。如果你不想使用 Nginx 作为你的服务器，你可以移步到 wiki 查看 <a href="https://github.com/cantino/huginn/wiki/Apache-Huginn-configuration">apache</a> 的使用</p>
+
+<h3 id="section-9">安装</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get install -y nginx
+</code></pre>
+</div>
+
+<h3 id="section-10">网页设置</h3>
+
+<p>拷贝示例的网页设置：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo cp deployment/nginx/huginn /etc/nginx/sites-available/huginn
+sudo ln -s /etc/nginx/sites-available/huginn /etc/nginx/sites-enabled/huginn
+</code></pre>
+</div>
+
+<p>确保你修改了配置文件来保证你的建立，如果你运行了多个 nginx 网页，那么要 <code class="highlighter-rouge">listen</code> 指令中移出 <code class="highlighter-rouge">default_server</code> 参数。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Change YOUR_SERVER_FQDN to the fully-qualified
+# domain name of your host serving Huginn.
+sudo editor /etc/nginx/sites-available/huginn
+</code></pre>
+</div>
+
+<p>如果 nginx 只运行了一个 huginn 服务，那么删除默认的 nginx 初始网页：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo rm /etc/nginx/sites-enabled/default
+</code></pre>
+</div>
+
+<p><strong>注释：</strong> 如果你想使用我们建议的 HTTPS，用 <code class="highlighter-rouge">huginn-ssl</code> 代替 Nginx 配置文件中的 <code class="highlighter-rouge">huginn</code>。在 <a href="https://github.com/cantino/huginn/blob/master/doc/manual/installation.md#using-https">使用 HTTPS </a> 查看更多细节。</p>
+
+<h3 id="section-11">测试配置文件</h3>
+
+<p>使用下面的命令测试你的 Nginx 配置文件是否正确：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo nginx -t
+</code></pre>
+</div>
+
+<p>你应该看到 <code class="highlighter-rouge">syntax is okay</code> 和 <code class="highlighter-rouge">test is successful</code>。如果你看到错误信息，那么检查你 Nginx 配置文件中的<code class="highlighter-rouge">huginn</code> 或 <code class="highlighter-rouge">huginn-ssl</code> 的排印错误等，根据错误信息来排查错误。</p>
+
+<h3 id="section-12">重启</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo service nginx restart
+</code></pre>
+</div>
+
+<h1 id="section-13">完成</h1>
+
+<h3 id="section-14">第一次登陆</h3>
+
+<p>在浏览器中登陆你的服务器地址，进行第一次 Huginn 的登陆。Huginn 已经建立好了一个默认的账号给你，你可以使用下面的来登陆：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>admin (or your SEED_USERNAME)
+password (or your SEED_PASSWORD)
+</code></pre>
+</div>
+
+<p><strong>享受吧！</strong> :sparkles: :star: :fireworks:</p>
+
+<p>你可以使用 <code class="highlighter-rouge">cd /home/huginn/huginn &amp;&amp; sudo bundle exec rake production:start</code> and <code class="highlighter-rouge">cd /home/huginn/huginn &amp;&amp; sudo bundle exec rake production:stop</code>来开始或者停止你的 Huginn 服务。</p>
+
+<p>确保你已经阅读了在完成 Huginn 安装后怎么去<a href="./update.md">更新</a>它！你还可以用 <a href="./capistrano.md">Capistrano</a> 来保证你的安装始终是最新版本的。</p>
+
+<h2 id="section-15">一些进阶的设置</h2>
+
+<h3 id="https">使用HTTPS</h3>
+
+<p>在 Huginn 上使用 HTTPS。</p>
+
+<ol>
+  <li>在 .enb
+    <ol>
+      <li>设置 <code class="highlighter-rouge">FORCE_SSL</code> 为 <code class="highlighter-rouge">true</code>。</li>
+    </ol>
+  </li>
+  <li>使用 <code class="highlighter-rouge">huginn-ssl</code> 代替 <code class="highlighter-rouge">huginn</code> 配置：
+    <ol>
+      <li><code class="highlighter-rouge">sudo cp deployment/nginx/huginn-ssl /etc/nginx/sites-available/huginn</code></li>
+      <li>更新 <code class="highlighter-rouge">YOUR_SERVER_FQDN</code></li>
+      <li>更新 <code class="highlighter-rouge">ssl_certificate</code> 和 <code class="highlighter-rouge">ssl_certificate_key</code>.</li>
+      <li>查看配置文件，考虑应用其他安全和性能提高的特性</li>
+    </ol>
+  </li>
+</ol>
+
+<p>重启 Nginx，导入初始化的脚本，然后重新启动 Huginn：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /home/huginn/huginn
+sudo service nginx restart
+sudo bundle exec rake production:export
+</code></pre>
+</div>
+
+<p>不鼓励使用自签名的证书，如果使用的话，你必须按照正确顺序的步骤，之后生成证书。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo mkdir -p /etc/nginx/ssl/
+cd /etc/nginx/ssl/
+sudo openssl req -newkey rsa:2048 -x509 -nodes -days 3560 -out huginn.crt -keyout huginn.key
+sudo chmod o-r huginn.key
+</code></pre>
+</div>
+
+<h2 id="section-16">故障排查</h2>
+
+<p>如果在安装过程中遇到了问题，请确保你是按照正确的顺序安装，没有错过其中的任何一步。</p>
+
+<p>当你的 Huginn 实例没有运行，运行下面的脚本来进行检查。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /home/huginn/huginn
+sudo bundle exec rake production:check
+</code></pre>
+</div>
+
+<p>如果还有其他的问题，我们很遗憾的告诉你需要查看各种日志文件来确定错误信息。</p>
+
+<h4 id="nginx--varlognginxhuginnerrorlog">Nginx 错误日志 <code class="highlighter-rouge">/var/log/nginx/huginn_error.log</code></h4>
+
+<p>这个文件应该是空的，但是是第一个你需要检查的地方。因为 <code class="highlighter-rouge">nginx</code> 是第一个处理发送到 Huginn 请求的应用。</p>
+
+<p>通常的问题：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">connect() to unix:/home/huginn/huginn/tmp/sockets/unicorn.socket failed</code>：这个是 Unicorn 应用的服务没有运行，确保你注释了 <a href="https://github.com/cantino/huginn/blob/master/doc/manual/installation.md#install-init-script">Profile</a> 文件中，位于 <code class="highlighter-rouge">PRODUCTION</code> 下面的两个示例配置文件中的一个。同时你的 unicorn 的配置文件要存在。</li>
+  <li><code class="highlighter-rouge">138 open() "/home/huginn/huginn/public/..." failed (13: Permission denied)</code>: nginx 用户（默认是<code class="highlighter-rouge">www-data</code>）需要能读取 <code class="highlighter-rouge">/home/huginn/huginn/public</code> 目录</li>
+</ul>
+
+<h3 id="unicorn---homehuginnhuginnlogunicornlog">Unicorn 日志  <code class="highlighter-rouge">/home/huginn/huginn/log/unicorn.log</code></h3>
+
+<p>这里应该包含了 HTTP 请求的入口，类似于：<code class="highlighter-rouge">10.0.2.2 - - [18/Aug/2015:21:15:12 +0000] "GET / HTTP/1.0" 200 - 0.0110</code></p>
+
+<p>如果你发现了 ruby 的回溯信息，或者以下的其他错误信息：</p>
+
+<ul>
+  <li>在 <code class="highlighter-rouge">/home/huginn/huginn/config/unicorn.rb</code> 的配置文件不存在</li>
+  <li>Gem 的组件没有<a href="https://github.com/cantino/huginn/blob/master/doc/manual/installation.md#install-gems">安装</a></li>
+</ul>
+
+<h3 id="rails--homehuginnhuginnlogproductionlog">Rails 应用的日志 <code class="highlighter-rouge">/home/huginn/huginn/log/production.log</code></h3>
+
+<p>这个文件非常的冗长，如果在你使用 Huginn 的时候出现 <code class="highlighter-rouge">We're sorry, but something went wrong.</code> ，这是一个典型的示例回溯信息，可以帮助你或者 Huginn 的开发者定位问题。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>NoMethodError (undefined method `name' for nil:NilClass):
+  app/controllers/jobs_controller.rb:6:in `index'
+  config/initializers/silence_worker_status_logger.rb:5:in `call_with_silence_worker_status'
+</code></pre>
+</div>
+
+<h3 id="runit-homehuginnhuginnlogcurrent">Runit/后台进程日志 /home/huginn/huginn/log/*/current</h3>
+
+<p>如果你的某一个 agent 没有正确的运行，这些文件会包含错误信息或者其他回溯信息。最简单的调试 agent 的方式就是看你的日志文件，当你在 Huginn 的网页上改变或者触发 agent 的时候，都会产生这些日志文件。</p>
+
+<p>这些日志文件的位置取决于你的 Procfile 文件，这些命令会给你可用的日志文件列表：</p>
+
+<p><code class="highlighter-rouge">ls -al /home/huginn/huginn/log/*/current</code></p>
+
+<p>当你想要观察后台进程的时候，你可以轻松的查看所有改变的文件：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>tail -f /home/huginn/huginn/log/*/current
+</code></pre>
+</div>
+
+<h3 id="section-17">还有问题？😿</h3>
+
+<p>你可能发现其他你无法解决的错误信息或者意外的回溯信息。请新建一个新的包含足够的信息的 issue ，这样你可以获得这个问题的解决办法。</p>
 
 <blockquote>
-  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="http://blog.andrewcantino.com/blog/2014/01/12/never-forget-your-umbrella-again-with-huginn">Never Forget Your Umbrella Again, With Huginn</a></p>
+  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，原文请访问 <a href="https://github.com/cantino/huginn/blob/master/doc/manual/installation.md">Installation from source</a></p>
 </blockquote>
 
 
 	    
-	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/用Huginn，让你再也不会忘记带伞.md" target="_blank">Edit on GitHub</a></p>
+	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/在Ubuntu-Debian上安装Huginn.md" target="_blank">Edit on GitHub</a></p>
 
 	
 	    <div class="docs-prevnext">
 	      
-	        <a href="/docs/network-image-node.html">&larr; Prev</a>
+	        <a href="/docs/本地运行Huginn.html">&larr; Prev</a>
 	      
 	      
-	        <a class="right" href="/docs/map-node.html">Next &rarr;</a>
+	        <a class="right" href="/docs/Huginn的Apache配置.html">Next &rarr;</a>
 	      
 	    </div>
 	

@@ -2,7 +2,7 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Huginn-China | 用 Huginn，让你再也不会忘记带伞</title>
+    <title>Huginn-China | Huginn 简介</title>
     <link rel='stylesheet' href='/static/main.css' type='text/css'/>
     <link rel='stylesheet' href='/static/media.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
@@ -24,11 +24,11 @@
 	<meta name="msapplication-TileImage" content="/static/images/favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="用 Huginn，让你再也不会忘记带伞" />
+    <meta property="og:title" content="Huginn 简介" />
     <meta property="og:site_name" content="Huginn-China">
     <meta property='og:description' content='Huginn-China'>
     <meta property='og:image' content='http://asyncdisplaykit.org/static/asyncdisplaykit-og-image.png'>
-    <meta property='og:url' content="http://asyncdisplaykit.org/docs/用Huginn，让你再也不会忘记带伞.html">
+    <meta property='og:url' content="http://asyncdisplaykit.org/docs/概述.html">
     <meta property='og:type' content='website'>
     <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
     <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
@@ -98,7 +98,7 @@
             
             
             <li>
-              <a href=/docs/概述.html>
+              <a href=/docs/概述.html class="active">
                 Huginn 简介
               </a>
             </li>
@@ -1398,7 +1398,7 @@
             
             
             <li>
-              <a href=/docs/用Huginn，让你再也不会忘记带伞.html class="active">
+              <a href=/docs/用Huginn，让你再也不会忘记带伞.html>
                 用 Huginn，让你再也不会忘记带伞
               </a>
             </li>
@@ -2011,58 +2011,86 @@
 	
 	<div class="content">
 		<h1>
-	      用 Huginn，让你再也不会忘记带伞
+	      Huginn 简介
 	    </h1>
 	    <p></p>
 	
-	    <p><a href="https://github.com/cantino/huginn">Huginn</a> 是一年来我在广大开源协作者的支持下一直在做的一款工具。Huginn是建立数据采集和数据反应日常生活的任务的轻型基础设施,把它看成是一个开源的 Yahoo! Pipes，IFTTT，或 Zapier。如果，在未来，Huginn 演变成类似 Google Now，但没有潜在的因素，因为您可以控制​​和主机自己的数据，它不会让我感到吃惊。</p>
-
-<p>我没有做过的所有共享，可以与 Huginn 建的事情了很好的工作，但我决心开始。</p>
-
-<p>因此，在这篇文章中，一个很简单的例子：</p>
-
-<p><strong>问题：</strong> 我总是忘记查看天气，忘记带伞，被淋成落汤鸡。
-<strong>解决方案：</strong> 当你所在地区有雨的时候，Huginn 每天早晨会向您发送电子邮件（或短信）。</p>
-
-<p>在服务器上已经安装 Huginn，制作一个新的天气 Agent：</p>
-
-<p><img src="https://ws1.sinaimg.cn/large/70b88a6bjw1f602jxqdogj20of03edg2.jpg" alt="" /></p>
-
-<p>你只需要将自己邮政编码（或位置代码）和 Wunderground 一个免费的API密钥。设置代理在晚上10点运行，这样它收集的数据是明天的天气。</p>
-
-<p><img src="https://ws2.sinaimg.cn/large/70b88a6bjw1f602m5nr7aj21iq128124.jpg" alt="" /></p>
-
-<p>一旦你保存你的新WeatherAgent，现在是时候来建立一个TriggerAgent。你需要把你刚才创建的WeatherAgent设置为源。</p>
-
-<p><img src="http://ww2.sinaimg.cn/large/70b88a6bjw1f602n8393nj21hg14ggxj.jpg" alt="" /></p>
-
-<p>TriggerAgents 包含一套规则，所有这一切都必须为触发火灾匹配。在这种情况下，我们只需要一个规则来匹配该Wunderground API天气事件的条件属性。我们会做一个正则表达式（正则表达式）对阵此属性，寻找写着“雨”或“风暴”。当触发火灾，将输出与消息的事件“带把雨伞！它看起来像“<条件>'明天'<位置>'”。这些&lt;...&gt;字段将通过从事件在这种情况下是filtered-，从您刚才WeatherAgent事件相应的属性填写。该截图显示了代理的选项正在被编辑为JSON，使其更容易为你阅读。您可以使用编辑器模式。</位置></条件></p>
-
-<p>最后，我们只需要代理给我们发电子邮件的Trigger Agent的事件。我们将使用一个DigestEmailAgent。它可以在一个特定的时间，将它收到的事件一次性地使用Email Agent发送电子邮件，或者wilioAgent发送短信。</p>
-
-<p>设置的事件的日程安排在早上6点运行，这样你醒来就可以收到电子邮件。记得为你刚刚创建的下雨警报事件设置来源。</p>
-
-<p><img src="http://ww3.sinaimg.cn/large/70b88a6bjw1f602r69lalj21hu0ve0zs.jpg" alt="" /></p>
-
-<p>就是这样！现在，您会在早上6点的早晨，当雨水在你的面积预计收到一封电子邮件。保持干爽！</p>
-
-<p>我会尽快发布更多的例子。你想看到什么样的Huginn教程，告诉我吧！</p>
+	    <p>Huginn 是一个用于构建在线执行自动化任务的系统，它可以监控网页变化、聚合第三方应用并且根据设定的触发条件执行自动化操作，你可以将它看作是一个可以运行在自己服务器上的 Yahoo!Pipes + IFTTT。该工具的作者为 <a href="http://andrewcantino.com/">Andrew Cantino</a>，Github 上的项目地址为 https://github.com/cantino/huginn/， 已经有上万的 star，而且该项目活跃度非常高，一直都有人在更新代码。</p>
 
 <blockquote>
-  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="http://blog.andrewcantino.com/blog/2014/01/12/never-forget-your-umbrella-again-with-huginn">Never Forget Your Umbrella Again, With Huginn</a></p>
+  <p>Yahoo!Pipes 是 雅虎提供一个信息聚合服务，可以用来烧制 RSS，该服务已于 2015 年 9 月 30 日完全关闭。</p>
 </blockquote>
+
+<blockquote>
+  <p><a href="https://ifttt.com/">IFTTT</a> 是 “if this then that”，意指『如果这样，则那样』，即如果一件事情发生了，则自动触发另一件事情。</p>
+</blockquote>
+
+<p><img src="https://raw.githubusercontent.com/cantino/huginn/master/doc/imgs/the-name.png" alt="huginn 的传说" /></p>
+
+<blockquote>
+  <p>项目名称的由来：在北欧神话中，奥丁的肩膀上坐着两只乌鸦，一只名叫 Huginn，一只名叫 Muninn。这两只乌鸦告诉奥丁他们的所见所闻，毫无遗漏。奥丁在黎明时派出它们，它们飞遍全世界然后在晚餐之前回来汇报，因此，奥丁能知晓很多事情。</p>
+</blockquote>
+
+<h2 id="huginn-">Huginn 能实现的功能：</h2>
+
+<ul>
+  <li>
+    <p>跟踪天气的变化，如果监测到明天要下雨或下雪，就会发邮件提醒你：别忘了带伞哦！</p>
+  </li>
+  <li>
+    <p>列出你关心的事项，并且当他们在微博上发生变化的时候自动接收邮件。（例如：如果你想知道全世界在“机器学习”方面发生的趣闻，那么 Huginn 可以监听微博上所有含有“机器学习”的条目，并且在发生尖锐的讨论时告诉你）</p>
+  </li>
+  <li>
+    <p>监测航班行程和购物订单信息。</p>
+  </li>
+  <li>
+    <p>在微博上关注你的项目名称，并且在人们提到它们时自动更新。</p>
+  </li>
+  <li>
+    <p>抓取网页内容并且在它们发生变化时发送邮件给你。</p>
+  </li>
+  <li>
+    <p>可以与 Adioso, HipChat, Basecamp, Growl, FTP, IMAP, Jabber, JIRA, MQTT, nextbus, Pushbullet, Pushover, RSS, Bash, Slack, StubHub, translation APIs, Twilio, Twitter, Wunderground, and Weibo等第三方服务连接。</p>
+  </li>
+  <li>
+    <p>在一天中的某个指定时间发送通知邮件给你，告知你需要知道的事情。</p>
+  </li>
+  <li>
+    <p>追踪高频次事件的数量，并且在出现突发状况时发送短信给你，就像“旧金山紧急报道”。</p>
+  </li>
+  <li>
+    <p>发送和接收 Webhooks(网络钩子，Webhook 就是用户通过自定义回调函数的方式来改变Web应用的一种行为）</p>
+  </li>
+  <li>
+    <p>运行自定义的 JavaScript 或者 CoffeeScript 函数</p>
+  </li>
+  <li>
+    <p>追踪你的位置轨迹</p>
+  </li>
+  <li>
+    <p>创建AMT工作流（Amazon Mechanical Turk workflows）代理的输入或输出。（Amazon Turk Agen</p>
+
+    <p>被称为 “HumanTaskAgent” –人类任务代理）。例如，每天向5个人要一张有趣的猫的图片，然后将这些图片发送给5个或更多人去评分，然后发送评分数最高的照片给5个人并向他们征集有趣的标题，然后将这些标题发送给5个人让他们评出最有趣的标题，最后将最有趣的标题和图片发布到我的博客里。</p>
+  </li>
+</ul>
+
+<h2 id="huginn--1">Huginn 中的主要概念</h2>
+
+<p>与 IFTTT 通过 Recipe 一样，Huginn Agent 可以创建、利用事件，并沿着一条定向的路径来传播（事件流）。你能时刻把握你的数据的动态。</p>
+
+<h2 id="section">加入我们</h2>
+
+<p>加入我们的<a href="https://huginn-china.slack.com/messages/general/">Slack</a> 来共同讨论该项目（huginn-china），或者你可以加入原作者的 <a href="https://gitter.im/cantino/huginn">Gitter room</a>。</p>
+
+<p>想用 Huginn 来帮助别人？我们鼓励所有形式的贡献！你可以贡献丰富的 UI 组件，或者制作一个新的 Agent 分享给大家，或者编写文档来指导那些对 Huginn 不太熟悉的人。或者，你可以挖掘或提出程序存在的问题，欢迎 fork 这个仓库，做出修正，并推送给我们。</p>
 
 
 	    
-	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/用Huginn，让你再也不会忘记带伞.md" target="_blank">Edit on GitHub</a></p>
+	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/概述.md" target="_blank">Edit on GitHub</a></p>
 
 	
 	    <div class="docs-prevnext">
 	      
-	        <a href="/docs/network-image-node.html">&larr; Prev</a>
-	      
-	      
-	        <a class="right" href="/docs/map-node.html">Next &rarr;</a>
 	      
 	    </div>
 	

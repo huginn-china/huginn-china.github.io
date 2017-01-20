@@ -1,9 +1,9 @@
 ---
-title: 本地运行 huginn
+title: 本地运行 Huginn
 layout: docs
-permalink: /docs/本地运行huginn.html
-prevPage: network-image-node.html
-nextPage: map-node.html
+permalink: /docs/本地运行Huginn.html
+prevPage: 初学者向导.html
+nextPage: 在Ubuntu-Debian上安装Huginn.html
 ---
 
 1. 克隆这个 repo

@@ -2,7 +2,7 @@
 <html prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset='utf-8'>
-    <title>Huginn-China | 用 Huginn，让你再也不会忘记带伞</title>
+    <title>Huginn-China | 在 Vagrant 和 VirtualBox 上面部署 Huginn</title>
     <link rel='stylesheet' href='/static/main.css' type='text/css'/>
     <link rel='stylesheet' href='/static/media.css' type='text/css'/>
     <link rel="stylesheet" href='/static/pygments.css' type='text/css'/>
@@ -24,11 +24,11 @@
 	<meta name="msapplication-TileImage" content="/static/images/favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
     <meta name='viewport' content='width=480'>
-    <meta property="og:title" content="用 Huginn，让你再也不会忘记带伞" />
+    <meta property="og:title" content="在 Vagrant 和 VirtualBox 上面部署 Huginn" />
     <meta property="og:site_name" content="Huginn-China">
     <meta property='og:description' content='Huginn-China'>
     <meta property='og:image' content='http://asyncdisplaykit.org/static/asyncdisplaykit-og-image.png'>
-    <meta property='og:url' content="http://asyncdisplaykit.org/docs/用Huginn，让你再也不会忘记带伞.html">
+    <meta property='og:url' content="http://asyncdisplaykit.org/docs/在Vagrant和VirtualBox上面部署Huginn.html">
     <meta property='og:type' content='website'>
     <script type="text/javascript" src="//use.typekit.net/vqa1hcx.js"></script>
     <script type="text/javascript">{'try{Typekit.load();}catch(e){}'}</script>
@@ -659,7 +659,7 @@
             
             
             <li>
-              <a href=/docs/在Vagrant和VirtualBox上面部署Huginn.html>
+              <a href=/docs/在Vagrant和VirtualBox上面部署Huginn.html class="active">
                 在 Vagrant 和 VirtualBox 上面部署 Huginn
               </a>
             </li>
@@ -1398,7 +1398,7 @@
             
             
             <li>
-              <a href=/docs/用Huginn，让你再也不会忘记带伞.html class="active">
+              <a href=/docs/用Huginn，让你再也不会忘记带伞.html>
                 用 Huginn，让你再也不会忘记带伞
               </a>
             </li>
@@ -2011,50 +2011,63 @@
 	
 	<div class="content">
 		<h1>
-	      用 Huginn，让你再也不会忘记带伞
+	      在 Vagrant 和 VirtualBox 上面部署 Huginn
 	    </h1>
 	    <p></p>
 	
-	    <p><a href="https://github.com/cantino/huginn">Huginn</a> 是一年来我在广大开源协作者的支持下一直在做的一款工具。Huginn是建立数据采集和数据反应日常生活的任务的轻型基础设施,把它看成是一个开源的 Yahoo! Pipes，IFTTT，或 Zapier。如果，在未来，Huginn 演变成类似 Google Now，但没有潜在的因素，因为您可以控制​​和主机自己的数据，它不会让我感到吃惊。</p>
+	    <p>根据此安装说明：</p>
 
-<p>我没有做过的所有共享，可以与 Huginn 建的事情了很好的工作，但我决心开始。</p>
+<p>https://github.com/cantino/huginn/blob/master/doc/manual/installation.md</p>
 
-<p>因此，在这篇文章中，一个很简单的例子：</p>
+<p>在 VirtualBox 下安装 Huginn，最低配置要求如下。</p>
 
-<p><strong>问题：</strong> 我总是忘记查看天气，忘记带伞，被淋成落汤鸡。
-<strong>解决方案：</strong> 当你所在地区有雨的时候，Huginn 每天早晨会向您发送电子邮件（或短信）。</p>
+<p>首先准备一个安装好了 VirtualBox 还有 Vagrant （从vagrantup.com）。</p>
 
-<p>在服务器上已经安装 Huginn，制作一个新的天气 Agent：</p>
+<p>测试</p>
 
-<p><img src="https://ws1.sinaimg.cn/large/70b88a6bjw1f602jxqdogj20of03edg2.jpg" alt="" /></p>
+<p>这个仓库是我每天在上面进行编译测试的，所以我希望能收集到任何源于 Huginn 项目本身变更引起的问题。 如果我哪里有问题或者你发现任何其他问题，发邮件到 burns.sj@gmail.com。</p>
 
-<p>你只需要将自己邮政编码（或位置代码）和 Wunderground 一个免费的API密钥。设置代理在晚上10点运行，这样它收集的数据是明天的天气。</p>
+<p>安装手册</p>
 
-<p><img src="https://ws2.sinaimg.cn/large/70b88a6bjw1f602m5nr7aj21iq128124.jpg" alt="" /></p>
+<p>如果你知道安装 Huginn 需要的各种设置（比如SMTP主机，MySQL的设置等），您可以：
+克隆这个存储库： git clone https://github.com/m0nty/huginn-vagrant.git
+跳转到这个文件执行 ./setup.sh，
+并按照提示操作。 你操作的时候不需要做其他的验证，除了设置必要的用户名，密码等。
+执行 vagrant up，Huginn 实例准备就绪。</p>
 
-<p>一旦你保存你的新WeatherAgent，现在是时候来建立一个TriggerAgent。你需要把你刚才创建的WeatherAgent设置为源。</p>
+<p>手动编辑配置文件</p>
 
-<p><img src="http://ww2.sinaimg.cn/large/70b88a6bjw1f602n8393nj21hg14ggxj.jpg" alt="" /></p>
+<p>如果你根据上面运行 ./setup.sh的话，就不需要做这个， 但是，如果您希望自己编辑的配置文件，或者你需要更改设置：
+克隆这个库： git clone https://github.com/m0nty/huginn-vagrant.git</p>
 
-<p>TriggerAgents 包含一套规则，所有这一切都必须为触发火灾匹配。在这种情况下，我们只需要一个规则来匹配该Wunderground API天气事件的条件属性。我们会做一个正则表达式（正则表达式）对阵此属性，寻找写着“雨”或“风暴”。当触发火灾，将输出与消息的事件“带把雨伞！它看起来像“<条件>'明天'<位置>'”。这些&lt;...&gt;字段将通过从事件在这种情况下是filtered-，从您刚才WeatherAgent事件相应的属性填写。该截图显示了代理的选项正在被编辑为JSON，使其更容易为你阅读。您可以使用编辑器模式。</位置></条件></p>
+<p>编辑这个env文件，
+该文件将被复制到
+/home/huginn/huginn/.env （当你修改设置的时候查找文件中的 FIXME 相关建议）。
+编辑 provision.sh，更改 MySQL 的 root 用户和 Huginn DB 用户（再次搜索 FIXME ）MySQL 的密码。
+编辑 Vagrantfile 如果要更改虚拟机的设置。 
+默认设置为 vb.memory = “1024” 如果你觉得你的 huginn 负载比较大的话，可以根据需要进行变更增加
+如果您的电脑不支持64位的话。 您可能需要修改这一行
+config.vm.box = “ubuntu/trusty64”
+如果你 Huginn实例想修改监听地址或端口，修改 huginn 文件。
+Procfile 这个文件不需要修改，你看看也行。
+做了上面的变更后，
+运行 vagrant up 启动 Huginn 实例。</p>
 
-<p>最后，我们只需要代理给我们发电子邮件的Trigger Agent的事件。我们将使用一个DigestEmailAgent。它可以在一个特定的时间，将它收到的事件一次性地使用Email Agent发送电子邮件，或者wilioAgent发送短信。</p>
+<p>如果我哪里有问题请告知我。</p>
 
-<p>设置的事件的日程安排在早上6点运行，这样你醒来就可以收到电子邮件。记得为你刚刚创建的下雨警报事件设置来源。</p>
+<p>我的Huginn实例已经在正常工作了，如果大家安装的时候遇到什么问题我很乐意提供帮助的。</p>
 
-<p><img src="http://ww3.sinaimg.cn/large/70b88a6bjw1f602r69lalj21hu0ve0zs.jpg" alt="" /></p>
-
-<p>就是这样！现在，您会在早上6点的早晨，当雨水在你的面积预计收到一封电子邮件。保持干爽！</p>
-
-<p>我会尽快发布更多的例子。你想看到什么样的Huginn教程，告诉我吧！</p>
+<p>需要做的：
+我之后可能会做一个 Dockerfile ，
+然后你就可以自己创建一个 docker 实例，而不用拖 Huginn 的 docker 镜像。</p>
 
 <blockquote>
-  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="http://blog.andrewcantino.com/blog/2014/01/12/never-forget-your-umbrella-again-with-huginn">Never Forget Your Umbrella Again, With Huginn</a></p>
+  <p>本文由 <a href="http://huginn.cn">Huginn 中文网</a> 翻译，已经获得项目作者授权，项目原文访问 <a href="https://github.com/cantino/huginn/wiki/Deploying-huginn-on-any-server-or-virtualbox-using-chef-solo-and-or-vagrant">Deploying huginn on any server or virtualbox using chef solo and or vagrant</a></p>
 </blockquote>
 
 
 	    
-	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/用Huginn，让你再也不会忘记带伞.md" target="_blank">Edit on GitHub</a></p>
+	    <p><a class="edit-page-link btn" href="https://github.com/AsyncDisplayKit/Documentation/tree/master/docs/_docs/在Vagrant和VirtualBox上面部署Huginn.md" target="_blank">Edit on GitHub</a></p>
 
 	
 	    <div class="docs-prevnext">

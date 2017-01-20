@@ -1,66 +1,36 @@
-- title: 快速开始
+- title: 概述
   items:
-  - 本地运行huginn
-  - resources
-- title: 使用 Huginn
+  - 概述
+- title: 安装教程
   items:
+  - 初学者向导
+  - 本地运行Huginn
+  - 在Ubuntu-Debian上安装Huginn
+  - Huginn的Apache配置
+  - 为什么要在docker上运行Huginn
+  - 使用PostgreSQL代替Mysql
+  - 在Vagrant和VirtualBox上面部署Huginn
+  - 用chefsolo和vagrant在各种服务器或VirtualBox上部署Huginn
+  - 部署到Heroku
+  - 部署到Cloud9(C9)
+- title: 使用教程
+  items:
+  - 让所有网页变成RSS——Huginn
+  - 使用ManualEventAgent
+  - 利用Cloudmailin服务解析邮件
+  - 利用Liquid模板引擎格式化事件
+  - 用Huginn来为你省钱
   - 用Huginn，让你再也不会忘记带伞
+  - 第三方应用通过WebhookAgent连接Huginn
+  - 筛选RSS源，制作新的全文RSS源
   - 让Huginn告诉你这个世界的变化
-  - subclassing
-  - node-lifecycle
-  - faq
-- title: 部署 Huginn
+  - 配置带有OAuth验证的应用
+- title: 扩展
   items:
-  - layout2-quickstart
-  - automatic-layout-examples-2
-  - layout2-layoutspec-types
-  - layout2-layout-element-properties
-  - layout2-api-sizing
-  - layout-transition-api
-- title: Conveniences
-  items:
-  - hit-test-slop
-  - batch-fetching-api
-  - automatic-subnode-mgmt
-  - image-modification-block
-  - placeholder-fade-duration
-  - accessibility
-- title: Optimizations
-  items:
-  - layer-backing
-  - subtree-rasterization
-  - synchronous-concurrency
-  - corner-rounding
-- title: Tools
-  items:
-  - debug-tool-hit-test-visualization
-  - debug-tool-pixel-scaling
-  - debug-tool-ASRangeController
-- title: Advanced Technologies
-  items:
-  - asvisibility
-  - asenvironment
-  - asrunloopqueue
-- title: Node Containers
-  items:
-  - containers-asviewcontroller
-  - containers-astablenode
-  - containers-ascollectionnode
-  - containers-aspagernode
-- title: Nodes
-  items:
-  - display-node
-  - cell-node
-  - button-node
-  - text-node
-  - image-node
-  - network-image-node
-  - video-node
-  - map-node
-  - control-node
-  - scroll-node
-  - editable-text-node
-  - multiplex-image-node
+  - 创建一个新的Agent
+  - 调试Agent
+  - 私人功能开发说明
+
 
   
   
