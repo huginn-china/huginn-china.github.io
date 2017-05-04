@@ -22,7 +22,7 @@ id: home
 		
 		
 		<p>
-		    <a href = "/docs/Huginn简介.html">点击查看我们翻译的中文文档!</a>
+		    <a href = "/docs/Huginn简介.html">点击此处，查看翻译好的中文文档!</a>
 		</p>
 	</article>
 </div>
