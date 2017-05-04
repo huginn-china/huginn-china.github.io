@@ -6,7 +6,7 @@ id: home
 
 <div class="hero">
 	<div class="container">
-		<div class="hero-title">  Huginn ,  听你号令 !  自动执行你的各种任务！</div>
+		<div class="hero-title">  Huginn ,  听你号令 !  自动执行你的任务！</div>
 		<a href="http://bbs.huginn.cn" class="btn">Huginn 论坛</a>
 		<a href="http://www.huginn.cc" class="btn btn-outlined">Huginn 博客</a>
 	</div>
